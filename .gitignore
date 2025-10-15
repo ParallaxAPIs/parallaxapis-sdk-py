@@ -1,0 +1,4 @@
+__pycache__
+dist
+test.py
+.pytest_cache
