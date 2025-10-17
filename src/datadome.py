@@ -6,7 +6,7 @@ import urllib
 import urllib.parse
 from .sdk import SDK
 from .solutions import GenerateUserAgentSolution, GenerateDatadomeCookieSolution
-from .tasks import ProductType, TaskGenerateDatadomeCookie, TaskGenerateUserAgent, GenerateDatadomeCookieData
+from .tasks import ProductType, TaskGenerateDatadomeCookie, TaskGenerateDatadomeTagsCookie, TaskGenerateUserAgent, GenerateDatadomeCookieData
 from .exceptions import NoDatadomeValuesInHtmlException, PermanentlyBlockedException, UnknownChallangeTypeException, UnparasbleHtmlDatadomeBodyException, UnparasbleJsonDatadomeBodyException
 
 class DatadomeSDK(SDK):
@@ -22,6 +22,19 @@ class DatadomeSDK(SDK):
     async def generate_cookie(self, task: TaskGenerateDatadomeCookie):
         return await self.api_call("/gen", task, GenerateDatadomeCookieSolution)
     
+    async def generate_tags_cookie(self, task: TaskGenerateDatadomeTagsCookie):
+        return await self.api_call(
+            "/gen", 
+            TaskGenerateDatadomeCookie(
+                site=task.site, 
+                region=task.region, 
+                pd=ProductType.Init, 
+                proxy=task.proxy, 
+                data=GenerateDatadomeCookieData(cid="null", e="", s="", b="", initialCid="")
+            ), 
+            GenerateDatadomeCookieSolution, 
+        )
+
     async def parse_challenge_url(self, url: str, datadome_cookie: str) -> Tuple[GenerateDatadomeCookieData, ProductType]:
         parsed_url = urllib.parse.urlparse(url)
 
