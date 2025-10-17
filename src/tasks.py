@@ -30,10 +30,15 @@ class TaskGenerateDatadomeCookie:
     data: GenerateDatadomeCookieData
 
 @dataclass
+class TagsData:
+    cid: str
+
+@dataclass
 class TaskGenerateDatadomeTagsCookie:
     site: str 
     region: str 
     proxy: str
+    data: TagsData
 
 @dataclass
 class TaskGeneratePXCookies:

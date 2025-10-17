@@ -30,7 +30,7 @@ class DatadomeSDK(SDK):
                 region=task.region, 
                 pd=ProductType.Init, 
                 proxy=task.proxy, 
-                data=GenerateDatadomeCookieData(cid="null", e="", s="", b="", initialCid="")
+                data=GenerateDatadomeCookieData(cid=task.data.cid, e="", s="", b="", initialCid="")
             ), 
             GenerateDatadomeCookieSolution, 
         )
