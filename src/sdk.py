@@ -9,12 +9,9 @@ class SDK:
     host: str
     api_key: str
 
-    def __init__(self, host: str, api_key: str, should_encode_key: Optional[bool] = False):
+    def __init__(self, host: str, api_key: str):
         self.host = host 
         self.api_key = api_key
-
-        if should_encode_key:
-            self.api_key = self.encode_key(self.api_key) 
 
     def encode_key(self, input_str: str) -> str:
         encoded = ''

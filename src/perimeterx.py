@@ -4,7 +4,7 @@ from .tasks import TaskGenerateHoldCaptcha, TaskGeneratePXCookies, TaskGenerateU
 
 class PerimeterxSDK(SDK):
     def __init__(self, host: str, api_key: str):
-        super().__init__(host, api_key, should_encode_key=True)
+        super().__init__(host, api_key)
     
     async def generate_cookies(self, task: TaskGeneratePXCookies):
         return await self.api_call("/gen", task, GeneratePXCookiesSolution)
