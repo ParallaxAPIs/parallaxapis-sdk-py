@@ -1,26 +1,10 @@
 from typing import Any, Optional
-from httpx import AsyncClient, Response
+from httpx import AsyncClient, Request, Response
 import httpx 
 from dataclasses import asdict, dataclass
 from typing import TypeVar
 
 T = TypeVar('T')
-
-@dataclass
-class Request():
-    url: str
-    headers: dict
-    json: dict
-
-def encode_key(input_str: str) -> str:
-    encoded = ''
-
-    for char in input_str:
-        char_code = ord(char)
-        new_char_code = char_code + 3
-        encoded += chr(new_char_code)
-    
-    return encoded
 
 class SDKHelper():
     def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
@@ -40,7 +24,8 @@ class SDKHelper():
             url = f"http://{self.host}{endpoint}"
 
         return Request(
-            url=url, 
+            "POST", 
+            url, 
             headers={'content-type': 'application/json'}, 
             json=payload, 
         )
@@ -84,7 +69,7 @@ class SDK(SDKHelper):
         assert self._client is not None
 
         req = self.create_request(endpoint=endpoint, task=task)
-        res = self._client.post(url=req.url, headers=req.headers, json=req.json)
+        res = self._client.send(req)
 
         return self.parse_response(res=res, solution=solution)
 
@@ -117,6 +102,6 @@ class AsyncSDK(SDKHelper):
         assert self._client is not None
 
         req = self.create_request(endpoint=endpoint, task=task)
-        res = await self._client.post(url=req.url, headers=req.headers, json=req.json)
+        res = await self._client.send(req)
 
         return self.parse_response(res=res, solution=solution)
