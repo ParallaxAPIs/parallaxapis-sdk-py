@@ -22,40 +22,105 @@ Easily interact with Datadome and Perimeterx anti-bot solutions using a simple P
 
 ### ⚡ SDK Initialization
 
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+
+# Option 1: Context manager (Recommended) - automatic cleanup
+async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+    # Your code here
+    pass
+
+# Option 2: Manual close - remember to call aclose()
+sdk = AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+try:
+    # Your code here
+    pass
+finally:
+    await sdk.aclose()
+```
+
+#### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
 
-# Basic initialization with API key and host
+# Option 1: Basic initialization
 sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+
+# Option 2: Manual close - call close() when done
+sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+try:
+    # Your code here
+    pass
+finally:
+    sdk.close()
 ```
 
 ### 🕵️‍♂️ Generate New User Agent
 
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
+
+async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+    user_agent = await sdk.generate_user_agent(TaskGenerateUserAgent(
+        region="pl",
+        site="vinted",
+        pd="optional"
+    ))
+
+    print(user_agent)
+    # Output:
+    # {
+    #     'UserAgent': 'Mozilla/5.0 ...',
+    #     'secHeader': '...',
+    #     'secFullVersionList': '...',
+    #     'secPlatform': '...',
+    #     'secArch': '...'
+    # }
+```
+
+#### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
 from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
 
 sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
 
-user_agent = await sdk.generate_user_agent(TaskGenerateUserAgent(
+user_agent = sdk.generate_user_agent(TaskGenerateUserAgent(
     region="pl",
     site="vinted",
     pd="optional"
 ))
 
 print(user_agent)
-# Output:
-# {
-#     'UserAgent': 'Mozilla/5.0 ...',
-#     'secHeader': '...',
-#     'secFullVersionList': '...',
-#     'secPlatform': '...',
-#     'secArch': '...'
-# }
+# Output: Same as async version
 ```
 
 ### 🔍 Get Task Data
 
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+
+async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
+    cookie = "cookie"
+    task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
+
+    print(task_data, product_type)
+    # Output:
+    # GenerateDatadomeCookieData(
+    #     cid="cookie",
+    #     b="",
+    #     e="e",
+    #     s="s",
+    #     initialCid="initialCid"
+    # ), ProductType.Captcha
+```
+
+#### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
 
@@ -63,21 +128,42 @@ sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
 
 challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
 cookie = "cookie"
-task_data, product_type = await sdk.parse_challenge_url(challenge_url, cookie)
+task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
 print(task_data, product_type)
-# Output:
-# GenerateDatadomeCookieData(
-#     cid="cookie",
-#     b="",
-#     e="e",
-#     s="s",
-#     initialCid="initialCid"
-# ), ProductType.Captcha
+# Output: Same as async version
 ```
 
 ### 🍪 Generate Cookie
 
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
+
+async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
+    cookie = "cookie"
+    task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
+
+    cookie_response = await sdk.generate_cookie(TaskGenerateDatadomeCookie(
+        site="vinted",
+        region="pl",
+        data=task_data,
+        pd=product_type,
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu"
+    ))
+
+    print(cookie_response)
+    # Output:
+    # {
+    #     'cookie': 'datadome=cookie_value',
+    #     'userAgent': 'Mozilla/5.0 ...'
+    # }
+```
+
+#### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
@@ -86,9 +172,9 @@ sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
 
 challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
 cookie = "cookie"
-task_data, product_type = await sdk.parse_challenge_url(challenge_url, cookie)
+task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
-cookie_response = await sdk.generate_cookie(TaskGenerateDatadomeCookie(
+cookie_response = sdk.generate_cookie(TaskGenerateDatadomeCookie(
     site="vinted",
     region="pl",
     data=task_data,
@@ -98,11 +184,52 @@ cookie_response = await sdk.generate_cookie(TaskGenerateDatadomeCookie(
 ))
 
 print(cookie_response)
-# Output:
-# {
-#     'cookie': 'datadome=cookie_value',
-#     'userAgent': 'Mozilla/5.0 ...'
-# }
+# Output: Same as async version
+```
+
+### 🏷️ Generate Tags Cookie
+
+The `generate_tags_cookie` method is used to generate initial Datadome tags cookies (uses `ProductType.Init`). This is typically used for the initial page load before any challenge is encountered.
+
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+
+async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+    tags_cookie_response = await sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
+        site="vinted",
+        region="pl",
+        data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu"
+    ))
+
+    print(tags_cookie_response)
+    # Output:
+    # {
+    #     'cookie': 'datadome=tags_cookie_value',
+    #     'userAgent': 'Mozilla/5.0 ...'
+    # }
+```
+
+#### Sync Client
+```python
+from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+
+sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+
+tags_cookie_response = sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
+    site="vinted",
+    region="pl",
+    data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
+    proxy="http://user:pas@addr:port",
+    proxyregion="eu"
+))
+
+print(tags_cookie_response)
+# Output: Same as async version
 ```
 
 ---
@@ -111,22 +238,98 @@ print(cookie_response)
 
 ### ⚡ SDK Initialization
 
+#### Async Client
 ```python
-from parallax_sdk_py.src.px import PerimeterxSDK
+from parallax_sdk_py.src.perimeterx import AsyncPerimeterxSDK
 
-# Basic initialization with API key and host
+# Option 1: Context manager (Recommended) - automatic cleanup
+async with AsyncPerimeterxSDK(host="api.parallaxsystems.io", api_key="key") as sdk:
+    # Your code here
+    pass
+
+# Option 2: Manual close - remember to call aclose()
+sdk = AsyncPerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
+try:
+    # Your code here
+    pass
+finally:
+    await sdk.aclose()
+```
+
+#### Sync Client
+```python
+from parallax_sdk_py.src.perimeterx import PerimeterxSDK
+
+# Option 1: Basic initialization
 sdk = PerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
+
+# Option 2: Manual close - call close() when done
+sdk = PerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
+try:
+    # Your code here
+    pass
+finally:
+    sdk.close()
 ```
 
 ### 🍪 Generate PX Cookie
 
+#### Async Client
 ```python
-from parallax_sdk_py.src.px import PerimeterxSDK
+from parallax_sdk_py.src.perimeterx import AsyncPerimeterxSDK
+from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
+
+async with AsyncPerimeterxSDK(host="api.parallaxsystems.io", api_key="key") as sdk:
+    result = await sdk.generate_cookies(TaskGeneratePXCookies(
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu",
+        region="com",
+        site="stockx"
+    ))
+
+    print(result)
+    # Output:
+    # {
+    #     'cookie': '_px3=d3sswjaltwxgAd...',
+    #     'vid': '514d7e11-6962-11f0-810f-88cc16043287',
+    #     'cts': '514d8e28-6962-11f0-810f-51b6xf2786b0',
+    #     'isFlagged': False,
+    #     'isMaybeFlagged': True,
+    #     'UserAgent': 'Mozilla/5.0 ...',
+    #     'data': '==WlrBti6vpO6rshP1CFtBsiocoO8...'
+    # }
+
+    hold_captcha_result = await sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu",
+        region="com",
+        site="stockx",
+        data=result['data'],
+        POW_PRO=None
+    ))
+
+    print(hold_captcha_result)
+    # Output:
+    # {
+    #     'cookie': '_px3=d3sswjaltwxgAd...',
+    #     'vid': '514d7e11-6962-11f0-810f-88cc16043287',
+    #     'cts': '514d8e28-6962-11f0-810f-51b6xf2786b0',
+    #     'isFlagged': False,
+    #     'isMaybeFlagged': True,
+    #     'UserAgent': 'Mozilla/5.0 ...',
+    #     'data': '==WlrBti6vpO6rshP1CFtBsiocoO8...',
+    #     'flaggedPOW': False
+    # }
+```
+
+#### Sync Client
+```python
+from parallax_sdk_py.src.perimeterx import PerimeterxSDK
 from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
 sdk = PerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
 
-result = await sdk.generate_cookies(TaskGeneratePXCookies(
+result = sdk.generate_cookies(TaskGeneratePXCookies(
     proxy="http://user:pas@addr:port",
     proxyregion="eu",
     region="com",
@@ -134,18 +337,9 @@ result = await sdk.generate_cookies(TaskGeneratePXCookies(
 ))
 
 print(result)
-# Output:
-# {
-#     'cookie': '_px3=d3sswjaltwxgAd...',
-#     'vid': '514d7e11-6962-11f0-810f-88cc16043287',
-#     'cts': '514d8e28-6962-11f0-810f-51b6xf2786b0',
-#     'isFlagged': False,
-#     'isMaybeFlagged': True,
-#     'UserAgent': 'Mozilla/5.0 ...',
-#     'data': '==WlrBti6vpO6rshP1CFtBsiocoO8...'
-# }
+# Output: Same as async version
 
-hold_captcha_result = await sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
+hold_captcha_result = sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
     proxy="http://user:pas@addr:port",
     proxyregion="eu",
     region="com",
@@ -155,17 +349,7 @@ hold_captcha_result = await sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
 ))
 
 print(hold_captcha_result)
-# Output:
-# {
-#     'cookie': '_px3=d3sswjaltwxgAd...',
-#     'vid': '514d7e11-6962-11f0-810f-88cc16043287',
-#     'cts': '514d8e28-6962-11f0-810f-51b6xf2786b0',
-#     'isFlagged': False,
-#     'isMaybeFlagged': True,
-#     'UserAgent': 'Mozilla/5.0 ...',
-#     'data': '==WlrBti6vpO6rshP1CFtBsiocoO8...',
-#     'flaggedPOW': False
-# }
+# Output: Same as async version
 ```
 
 ---

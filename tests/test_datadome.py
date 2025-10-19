@@ -2,7 +2,7 @@ from typing import Optional
 import pytest
 from src.datadome import DatadomeSDK
 from dataclasses import dataclass
-from src.exceptions import PermanentlyBlockedException, UnknownChallangeTypeException
+from src.exceptions import PermanentlyBlockedException, UnknownChallengeTypeException
 from src.tasks import ProductType
 
 @pytest.mark.asyncio
@@ -66,9 +66,9 @@ async def test_html_parsing():
         
         if test_case.expect_to_raise:
             with pytest.raises(PermanentlyBlockedException):
-                await sdk.parse_challange_html(test_case.html, test_case.expected_cid)
+                sdk.parse_challenge_html(test_case.html, test_case.expected_cid)
         else:
-            task, pd = await sdk.parse_challange_html(test_case.html, test_case.expected_cid)
+            task, pd = sdk.parse_challenge_html(test_case.html, test_case.expected_cid)
 
             assert task.b ==  test_case.expected_b
             assert task.cid == test_case.expected_cid
@@ -78,7 +78,7 @@ async def test_html_parsing():
             assert pd == test_case.expected_pd
 
 @pytest.mark.asyncio
-async def test_detect_challange_and_parse():
+async def test_detect_challenge_and_parse():
     @dataclass
     class TestCase:
         body: str
@@ -89,14 +89,14 @@ async def test_detect_challange_and_parse():
         expected_s: str
         expected_pd: Optional[ProductType]
         expect_to_raise_permanent_block: bool
-        expect_to_raise_unknown_challange_type: bool
+        expect_to_raise_unknown_challenge_type: bool
         expected_to_return_blocked: bool 
 
     test_cases: list[TestCase] = [
         TestCase(
             expected_to_return_blocked=False, 
             expect_to_raise_permanent_block=False, 
-            expect_to_raise_unknown_challange_type=False, 
+            expect_to_raise_unknown_challenge_type=False, 
             expected_b='',
             expected_cid='cid',
             expected_e='e',
@@ -108,7 +108,7 @@ async def test_detect_challange_and_parse():
         TestCase(
             expected_to_return_blocked=True, 
             expect_to_raise_permanent_block=False, 
-            expect_to_raise_unknown_challange_type=False, 
+            expect_to_raise_unknown_challenge_type=False, 
             expected_b='b',
             expected_cid='cid',
             expected_e='e',
@@ -122,7 +122,7 @@ async def test_detect_challange_and_parse():
         TestCase(
             expected_to_return_blocked=True, 
             expect_to_raise_permanent_block=True, 
-            expect_to_raise_unknown_challange_type=False, 
+            expect_to_raise_unknown_challenge_type=False, 
             expected_b='',
             expected_cid='cid',
             expected_e='e',
@@ -136,7 +136,7 @@ async def test_detect_challange_and_parse():
         TestCase(
             expected_to_return_blocked=True, 
             expect_to_raise_permanent_block=False, 
-            expect_to_raise_unknown_challange_type=False, 
+            expect_to_raise_unknown_challenge_type=False, 
             expected_b='',
             expected_cid='cid',
             expected_e='e',
@@ -148,7 +148,7 @@ async def test_detect_challange_and_parse():
         TestCase(
             expected_to_return_blocked=True, 
             expect_to_raise_permanent_block=False, 
-            expect_to_raise_unknown_challange_type=False, 
+            expect_to_raise_unknown_challenge_type=False, 
             expected_b='',
             expected_cid='cid',
             expected_e='e',
@@ -160,7 +160,7 @@ async def test_detect_challange_and_parse():
         TestCase(
             expected_to_return_blocked=True, 
             expect_to_raise_permanent_block=False, 
-            expect_to_raise_unknown_challange_type=True, 
+            expect_to_raise_unknown_challenge_type=True, 
             expected_b='',
             expected_cid='cid',
             expected_e='e',
@@ -172,7 +172,7 @@ async def test_detect_challange_and_parse():
         TestCase(
             expected_to_return_blocked=True, 
             expect_to_raise_permanent_block=True, 
-            expect_to_raise_unknown_challange_type=False, 
+            expect_to_raise_unknown_challenge_type=False, 
             expected_b='',
             expected_cid='cid',
             expected_e='e',
@@ -188,16 +188,16 @@ async def test_detect_challange_and_parse():
         test_case_id = test_case_id+1
         sdk = DatadomeSDK("", "")
         
-        if test_case.expect_to_raise_unknown_challange_type:
-            with pytest.raises(UnknownChallangeTypeException):
-                await sdk.detect_challange_and_parse(test_case.body, test_case.expected_cid)
+        if test_case.expect_to_raise_unknown_challenge_type:
+            with pytest.raises(UnknownChallengeTypeException):
+                sdk.detect_challenge_and_parse(test_case.body, test_case.expected_cid)
         elif test_case.expect_to_raise_permanent_block:
             with pytest.raises(PermanentlyBlockedException):
-                await sdk.detect_challange_and_parse(test_case.body, test_case.expected_cid)
+                sdk.detect_challenge_and_parse(test_case.body, test_case.expected_cid)
         else:
             print(f"Test case: {test_case_id}")
 
-            blocked, task, pd = await sdk.detect_challange_and_parse(test_case.body, test_case.expected_cid)
+            blocked, task, pd = sdk.detect_challenge_and_parse(test_case.body, test_case.expected_cid)
 
             assert blocked == test_case.expected_to_return_blocked
 

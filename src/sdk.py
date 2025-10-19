@@ -1,30 +1,18 @@
 from typing import Any, Optional
+from httpx import AsyncClient, Request, Response
 import httpx 
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 from typing import TypeVar
 
 T = TypeVar('T')
 
-class SDK:
-    host: str
-    api_key: str
-
-    def __init__(self, host: str, api_key: str):
+class SDKHelper():
+    def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
         self.host = host 
         self.api_key = api_key
+        self.without_https = without_https
 
-    def encode_key(self, input_str: str) -> str:
-        encoded = ''
-
-        for char in input_str:
-            char_code = ord(char)
-            new_char_code = char_code + 3
-            encoded += chr(new_char_code)
-        
-        return encoded
-
-
-    async def api_call(self, endpoint: str, task: Any, solution: type[T]) -> T: 
+    def create_request(self, endpoint: str, task: Any) -> Request:
         payload = {
             "auth": self.api_key, 
             **asdict(task)
@@ -32,10 +20,17 @@ class SDK:
 
         url = f"https://{self.host}{endpoint}"
 
-        res = httpx.post(url=url, verify=False, headers={
-            'content-type': 'application/json'
-        }, json=payload)
+        if self.without_https:
+            url = f"http://{self.host}{endpoint}"
 
+        return Request(
+            "POST", 
+            url, 
+            headers={'content-type': 'application/json'}, 
+            json=payload, 
+        )
+    
+    def parse_response(self, res: Response, solution: type[T]) -> T:
         body = res.json() 
 
         if body['error'] is not None and body['error'] is True:
@@ -45,3 +40,68 @@ class SDK:
             raise Exception(f"Api responded with error, error message: {body['message']}")
 
         return solution(**body)
+
+class SDK(SDKHelper):
+    _client: Optional[httpx.Client]
+
+    def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
+        super().__init__(api_key=api_key, host=host, without_https=without_https)
+        self._client = None
+
+    def close(self):
+        if self._client is not None:
+            self._client.close()
+
+    def __enter__(self):
+        self._client = httpx.Client()
+        return self
+    
+    def init_client(self):
+        self._client = httpx.Client()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+    def api_call(self, endpoint: str, task: Any, solution: type[T]) -> T:
+        if self._client is None:
+            self.init_client()
+
+        assert self._client is not None
+
+        req = self.create_request(endpoint=endpoint, task=task)
+        res = self._client.send(req)
+
+        return self.parse_response(res=res, solution=solution)
+
+class AsyncSDK(SDKHelper):
+    _client: Optional[AsyncClient]
+
+    def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
+        super().__init__(api_key=api_key, host=host, without_https=without_https)
+        
+        self._client = None
+    
+    async def aclose(self):
+        if self._client is not None:
+            await self._client.aclose()
+
+    async def __aenter__(self):
+        await self.init_client()
+        return self
+    
+    async def init_client(self):
+        self._client = AsyncClient()
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb): 
+        await self.aclose()
+
+    async def api_call(self, endpoint: str, task: Any, solution: type[T]) -> T:
+        if self._client is None:
+            await self.init_client()
+
+        assert self._client is not None
+
+        req = self.create_request(endpoint=endpoint, task=task)
+        res = await self._client.send(req)
+
+        return self.parse_response(res=res, solution=solution)

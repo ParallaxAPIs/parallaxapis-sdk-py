@@ -4,13 +4,13 @@ class NoDatadomeValuesInHtmlException(Exception):
 class MalformedDatadomeValuesObjectException(Exception):
     pass
 
-class UnknownChallangeTypeException(Exception):
+class UnknownChallengeTypeException(Exception):
     pass
 
-class UnparasbleJsonDatadomeBodyException(Exception):
+class UnparsableJsonDatadomeBodyException(Exception):
     pass
 
-class UnparasbleHtmlDatadomeBodyException(Exception):
+class UnparsableHtmlDatadomeBodyException(Exception):
     pass
 
 class PermanentlyBlockedException(Exception):
