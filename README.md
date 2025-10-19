@@ -187,6 +187,51 @@ print(cookie_response)
 # Output: Same as async version
 ```
 
+### 🏷️ Generate Tags Cookie
+
+The `generate_tags_cookie` method is used to generate initial Datadome tags cookies (uses `ProductType.Init`). This is typically used for the initial page load before any challenge is encountered.
+
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+
+async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+    tags_cookie_response = await sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
+        site="vinted",
+        region="pl",
+        data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu"
+    ))
+
+    print(tags_cookie_response)
+    # Output:
+    # {
+    #     'cookie': 'datadome=tags_cookie_value',
+    #     'userAgent': 'Mozilla/5.0 ...'
+    # }
+```
+
+#### Sync Client
+```python
+from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+
+sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+
+tags_cookie_response = sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
+    site="vinted",
+    region="pl",
+    data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
+    proxy="http://user:pas@addr:port",
+    proxyregion="eu"
+))
+
+print(tags_cookie_response)
+# Output: Same as async version
+```
+
 ---
 
 ## 🛡️ Perimeterx Usage
