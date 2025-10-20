@@ -4,8 +4,6 @@ import httpx
 from dataclasses import asdict, dataclass
 from typing import TypeVar
 
-from sympy import apart
-
 T = TypeVar('T')
 
 @dataclass
@@ -13,7 +11,7 @@ class SDKConfig():
     host: str
     api_key: str
     timeout: Optional[int] = 30
-    proxy: Optional[str] = ""
+    proxy: Optional[str] = None
 
 class SDKHelper():
     def __init__(self, host: str, api_key: str):
@@ -37,14 +35,17 @@ class SDKHelper():
         )
     
     def parse_response(self, res: Response, solution: type[T]) -> T:
-        body = res.json() 
-
-        if body['error'] is not None and body['error'] is True:
-            if body['message'] is None:
-                body['message'] = body["cookie"]
-
+        if res.status_code != 200:
+            text = res.text
+            raise Exception(f"HTTP {res.status_code}: {text[:400]}")
+        try:
+            body = res.json()
+        except Exception:
+            raise Exception("Invalid JSON response")
+        if isinstance(body, dict) and body.get('error') is True:
+            if body.get('message') is None:
+                body['message'] = body.get('cookie')
             raise Exception(f"Api responded with error, error message: {body['message']}")
-
         return solution(**body)
 
 class SDK(SDKHelper):
@@ -69,7 +70,7 @@ class SDK(SDKHelper):
         return self
     
     def init_client(self):
-        self._client = httpx.Client(timeout=2, proxy="")
+        self._client = httpx.Client(timeout=self.cfg.timeout, proxy=self.cfg.proxy)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
