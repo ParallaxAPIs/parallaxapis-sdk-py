@@ -12,16 +12,14 @@ T = TypeVar('T')
 class SDKConfig():
     host: str
     api_key: str
-    without_https: Optional[bool] = False
     timeout: Optional[int] = 30
     proxy: Optional[str] = ""
 
 class SDKHelper():
-    def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
+    def __init__(self, host: str, api_key: str):
         self.host = host 
         self.api_key = api_key
-        self.without_https = without_https
-
+   
     def create_request(self, endpoint: str, task: Any) -> Request:
         payload = {
             "auth": self.api_key, 
@@ -30,8 +28,6 @@ class SDKHelper():
 
         url = f"https://{self.host}{endpoint}"
 
-        if self.without_https:
-            url = f"http://{self.host}{endpoint}"
 
         return Request(
             "POST", 
@@ -55,7 +51,7 @@ class SDK(SDKHelper):
     _client: Optional[httpx.Client]
 
     def __init__(self, cfg: SDKConfig):
-        super().__init__(api_key=cfg.api_key, host=cfg.host, without_https=cfg.without_https)
+        super().__init__(api_key=cfg.api_key, host=cfg.host)
      
         self._client = None
         self.cfg = cfg
@@ -93,7 +89,7 @@ class AsyncSDK(SDKHelper):
     _client: Optional[AsyncClient]
 
     def __init__(self, cfg: SDKConfig):
-        super().__init__(api_key=cfg.api_key, host=cfg.host, without_https=cfg.without_https)
+        super().__init__(api_key=cfg.api_key, host=cfg.host)
         
         self.cfg = cfg
         self._client = None
