@@ -1,6 +1,17 @@
 # 🚀 Parallax SDK: Datadome & Perimeterx (Python)
 
-Easily interact with Datadome and Perimeterx anti-bot solutions using a simple Python SDK. Fast integration, clear API! ✨
+**Powerful Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
+
+Built with both async and sync support, this SDK is perfect for Python developers who need flexibility. Whether you're building async web scrapers with aiohttp/httpx or traditional synchronous applications, this SDK has you covered.
+
+## ✨ Why Choose the Python SDK?
+
+- **🔄 Dual Mode Support**: Both async (`AsyncDatadomeSDK`) and sync (`DatadomeSDK`) clients for maximum flexibility
+- **⚡ Async-First Design**: Native asyncio support with context managers for efficient concurrent operations
+- **🎯 Type Hints**: Full type annotations with dataclass-based models for better IDE support
+- **🛠️ Pythonic API**: Clean, intuitive interfaces following Python best practices
+- **📦 Easy Integration**: Works seamlessly with popular HTTP libraries (aiohttp, httpx, requests)
+- **🔧 Flexible Configuration**: Context manager support with automatic resource cleanup
 
 ---
 
