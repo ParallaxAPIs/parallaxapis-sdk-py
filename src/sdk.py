@@ -4,7 +4,17 @@ import httpx
 from dataclasses import asdict, dataclass
 from typing import TypeVar
 
+from sympy import apart
+
 T = TypeVar('T')
+
+@dataclass
+class SDKConfig():
+    host: str
+    api_key: str
+    without_https: Optional[bool] = False
+    timeout: Optional[int] = 30
+    proxy: Optional[str] = ""
 
 class SDKHelper():
     def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
@@ -44,20 +54,26 @@ class SDKHelper():
 class SDK(SDKHelper):
     _client: Optional[httpx.Client]
 
-    def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
-        super().__init__(api_key=api_key, host=host, without_https=without_https)
+    def __init__(self, cfg: SDKConfig):
+        super().__init__(api_key=cfg.api_key, host=cfg.host, without_https=cfg.without_https)
+     
         self._client = None
+        self.cfg = cfg
 
     def close(self):
         if self._client is not None:
             self._client.close()
 
     def __enter__(self):
-        self._client = httpx.Client()
+        self._client = httpx.Client(
+            timeout=self.cfg.timeout, 
+            proxy=self.cfg.proxy
+        )
+
         return self
     
     def init_client(self):
-        self._client = httpx.Client()
+        self._client = httpx.Client(timeout=2, proxy="")
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
@@ -76,9 +92,10 @@ class SDK(SDKHelper):
 class AsyncSDK(SDKHelper):
     _client: Optional[AsyncClient]
 
-    def __init__(self, host: str, api_key: str, without_https: Optional[bool] = False):
-        super().__init__(api_key=api_key, host=host, without_https=without_https)
+    def __init__(self, cfg: SDKConfig):
+        super().__init__(api_key=cfg.api_key, host=cfg.host, without_https=cfg.without_https)
         
+        self.cfg = cfg
         self._client = None
     
     async def aclose(self):
@@ -90,7 +107,10 @@ class AsyncSDK(SDKHelper):
         return self
     
     async def init_client(self):
-        self._client = AsyncClient()
+        self._client = AsyncClient(
+            timeout=self.cfg.timeout, 
+            proxy=self.cfg.proxy
+        )
 
     async def __aexit__(self, exc_type, exc_val, exc_tb): 
         await self.aclose()

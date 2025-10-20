@@ -25,14 +25,29 @@ Easily interact with Datadome and Perimeterx anti-bot solutions using a simple P
 #### Async Client
 ```python
 from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
+
+# Basic configuration
+cfg = SDKConfig(
+    host="dd.parallaxsystems.io",
+    api_key="key"
+)
+
+# Advanced configuration with timeout and proxy
+cfg = SDKConfig(
+    host="dd.parallaxsystems.io",
+    api_key="key",
+    timeout=60,  # Optional: request timeout in seconds (default: 30)
+    proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
+)
 
 # Option 1: Context manager (Recommended) - automatic cleanup
-async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     # Your code here
     pass
 
 # Option 2: Manual close - remember to call aclose()
-sdk = AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+sdk = AsyncDatadomeSDK(cfg=cfg)
 try:
     # Your code here
     pass
@@ -43,12 +58,29 @@ finally:
 #### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 
-# Option 1: Basic initialization
-sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+# Basic configuration
+cfg = SDKConfig(
+    host="dd.parallaxsystems.io",
+    api_key="key"
+)
+
+# Advanced configuration with timeout and proxy
+cfg = SDKConfig(
+    host="dd.parallaxsystems.io",
+    api_key="key",
+    timeout=60,  # Optional: request timeout in seconds (default: 30)
+    proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
+)
+
+# Option 1: Context manager - automatic cleanup
+with DatadomeSDK(cfg=cfg) as sdk:
+    # Your code here
+    pass
 
 # Option 2: Manual close - call close() when done
-sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+sdk = DatadomeSDK(cfg=cfg)
 try:
     # Your code here
     pass
@@ -61,9 +93,12 @@ finally:
 #### Async Client
 ```python
 from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
 
-async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+
+async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     user_agent = await sdk.generate_user_agent(TaskGenerateUserAgent(
         region="pl",
         site="vinted",
@@ -84,18 +119,20 @@ async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
 #### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
 
-sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
 
-user_agent = sdk.generate_user_agent(TaskGenerateUserAgent(
-    region="pl",
-    site="vinted",
-    pd="optional"
-))
+with DatadomeSDK(cfg=cfg) as sdk:
+    user_agent = sdk.generate_user_agent(TaskGenerateUserAgent(
+        region="pl",
+        site="vinted",
+        pd="optional"
+    ))
 
-print(user_agent)
-# Output: Same as async version
+    print(user_agent)
+    # Output: Same as async version
 ```
 
 ### 🔍 Get Task Data
@@ -103,8 +140,11 @@ print(user_agent)
 #### Async Client
 ```python
 from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 
-async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+
+async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
     cookie = "cookie"
     task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
@@ -123,15 +163,17 @@ async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
 #### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 
-sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
 
-challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
-cookie = "cookie"
-task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
+with DatadomeSDK(cfg=cfg) as sdk:
+    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
+    cookie = "cookie"
+    task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
-print(task_data, product_type)
-# Output: Same as async version
+    print(task_data, product_type)
+    # Output: Same as async version
 ```
 
 ### 🍪 Generate Cookie
@@ -139,9 +181,17 @@ print(task_data, product_type)
 #### Async Client
 ```python
 from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
 
-async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+cfg = SDKConfig(
+    host="dd.parallaxsystems.io",
+    api_key="key",
+    timeout=60,  # Optional: custom timeout
+    proxy="http://user:pass@proxy.example.com:8080"  # Optional: SDK-level proxy
+)
+
+async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
     cookie = "cookie"
     task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
@@ -151,7 +201,7 @@ async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
         region="pl",
         data=task_data,
         pd=product_type,
-        proxy="http://user:pas@addr:port",
+        proxy="http://user:pas@addr:port",  # Task-level proxy (for solving)
         proxyregion="eu"
     ))
 
@@ -166,25 +216,32 @@ async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
 #### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
 
-sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(
+    host="dd.parallaxsystems.io",
+    api_key="key",
+    timeout=60,  # Optional: custom timeout
+    proxy="http://user:pass@proxy.example.com:8080"  # Optional: SDK-level proxy
+)
 
-challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
-cookie = "cookie"
-task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
+with DatadomeSDK(cfg=cfg) as sdk:
+    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
+    cookie = "cookie"
+    task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
-cookie_response = sdk.generate_cookie(TaskGenerateDatadomeCookie(
-    site="vinted",
-    region="pl",
-    data=task_data,
-    pd=product_type,
-    proxy="http://user:pas@addr:port",
-    proxyregion="eu"
-))
+    cookie_response = sdk.generate_cookie(TaskGenerateDatadomeCookie(
+        site="vinted",
+        region="pl",
+        data=task_data,
+        pd=product_type,
+        proxy="http://user:pas@addr:port",  # Task-level proxy (for solving)
+        proxyregion="eu"
+    ))
 
-print(cookie_response)
-# Output: Same as async version
+    print(cookie_response)
+    # Output: Same as async version
 ```
 
 ### 🏷️ Generate Tags Cookie
@@ -194,9 +251,12 @@ The `generate_tags_cookie` method is used to generate initial Datadome tags cook
 #### Async Client
 ```python
 from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
-async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
+cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+
+async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     tags_cookie_response = await sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
         site="vinted",
         region="pl",
@@ -216,20 +276,22 @@ async with AsyncDatadomeSDK(host="dd.parallaxsystems.io", api_key="key") as sdk:
 #### Sync Client
 ```python
 from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
-sdk = DatadomeSDK(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
 
-tags_cookie_response = sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
-    site="vinted",
-    region="pl",
-    data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
-    proxy="http://user:pas@addr:port",
-    proxyregion="eu"
-))
+with DatadomeSDK(cfg=cfg) as sdk:
+    tags_cookie_response = sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
+        site="vinted",
+        region="pl",
+        data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu"
+    ))
 
-print(tags_cookie_response)
-# Output: Same as async version
+    print(tags_cookie_response)
+    # Output: Same as async version
 ```
 
 ---
@@ -241,14 +303,29 @@ print(tags_cookie_response)
 #### Async Client
 ```python
 from parallax_sdk_py.src.perimeterx import AsyncPerimeterxSDK
+from parallax_sdk_py.src.sdk import SDKConfig
+
+# Basic configuration
+cfg = SDKConfig(
+    host="api.parallaxsystems.io",
+    api_key="key"
+)
+
+# Advanced configuration with timeout and proxy
+cfg = SDKConfig(
+    host="api.parallaxsystems.io",
+    api_key="key",
+    timeout=60,  # Optional: request timeout in seconds (default: 30)
+    proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
+)
 
 # Option 1: Context manager (Recommended) - automatic cleanup
-async with AsyncPerimeterxSDK(host="api.parallaxsystems.io", api_key="key") as sdk:
+async with AsyncPerimeterxSDK(cfg=cfg) as sdk:
     # Your code here
     pass
 
 # Option 2: Manual close - remember to call aclose()
-sdk = AsyncPerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
+sdk = AsyncPerimeterxSDK(cfg=cfg)
 try:
     # Your code here
     pass
@@ -259,12 +336,29 @@ finally:
 #### Sync Client
 ```python
 from parallax_sdk_py.src.perimeterx import PerimeterxSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 
-# Option 1: Basic initialization
-sdk = PerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
+# Basic configuration
+cfg = SDKConfig(
+    host="api.parallaxsystems.io",
+    api_key="key"
+)
+
+# Advanced configuration with timeout and proxy
+cfg = SDKConfig(
+    host="api.parallaxsystems.io",
+    api_key="key",
+    timeout=60,  # Optional: request timeout in seconds (default: 30)
+    proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
+)
+
+# Option 1: Context manager - automatic cleanup
+with PerimeterxSDK(cfg=cfg) as sdk:
+    # Your code here
+    pass
 
 # Option 2: Manual close - call close() when done
-sdk = PerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
+sdk = PerimeterxSDK(cfg=cfg)
 try:
     # Your code here
     pass
@@ -277,9 +371,16 @@ finally:
 #### Async Client
 ```python
 from parallax_sdk_py.src.perimeterx import AsyncPerimeterxSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
-async with AsyncPerimeterxSDK(host="api.parallaxsystems.io", api_key="key") as sdk:
+cfg = SDKConfig(
+    host="api.parallaxsystems.io",
+    api_key="key",
+    timeout=60  # Optional: custom timeout
+)
+
+async with AsyncPerimeterxSDK(cfg=cfg) as sdk:
     result = await sdk.generate_cookies(TaskGeneratePXCookies(
         proxy="http://user:pas@addr:port",
         proxyregion="eu",
@@ -325,31 +426,37 @@ async with AsyncPerimeterxSDK(host="api.parallaxsystems.io", api_key="key") as s
 #### Sync Client
 ```python
 from parallax_sdk_py.src.perimeterx import PerimeterxSDK
+from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
-sdk = PerimeterxSDK(host="api.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(
+    host="api.parallaxsystems.io",
+    api_key="key",
+    timeout=60  # Optional: custom timeout
+)
 
-result = sdk.generate_cookies(TaskGeneratePXCookies(
-    proxy="http://user:pas@addr:port",
-    proxyregion="eu",
-    region="com",
-    site="stockx"
-))
+with PerimeterxSDK(cfg=cfg) as sdk:
+    result = sdk.generate_cookies(TaskGeneratePXCookies(
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu",
+        region="com",
+        site="stockx"
+    ))
 
-print(result)
-# Output: Same as async version
+    print(result)
+    # Output: Same as async version
 
-hold_captcha_result = sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
-    proxy="http://user:pas@addr:port",
-    proxyregion="eu",
-    region="com",
-    site="stockx",
-    data=result['data'],
-    POW_PRO=None
-))
+    hold_captcha_result = sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
+        proxy="http://user:pas@addr:port",
+        proxyregion="eu",
+        region="com",
+        site="stockx",
+        data=result['data'],
+        POW_PRO=None
+    ))
 
-print(hold_captcha_result)
-# Output: Same as async version
+    print(hold_captcha_result)
+    # Output: Same as async version
 ```
 
 ---

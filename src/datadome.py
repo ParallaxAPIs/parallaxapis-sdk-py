@@ -3,7 +3,7 @@ import json
 import re
 from typing import Any, Optional, Tuple
 import urllib.parse
-from .sdk import SDK, AsyncSDK
+from .sdk import SDK, AsyncSDK, SDKConfig
 from .solutions import GenerateUserAgentSolution, GenerateDatadomeCookieSolution
 from .tasks import ProductType, TaskGenerateDatadomeCookie, TaskGenerateDatadomeTagsCookie, TaskGenerateUserAgent, GenerateDatadomeCookieData
 from .exceptions import NoDatadomeValuesInHtmlException, PermanentlyBlockedException, UnknownChallengeTypeException, UnparsableHtmlDatadomeBodyException, UnparsableJsonDatadomeBodyException
@@ -94,8 +94,8 @@ class DatadomeChallengeParser():
         return (False, None, None)
 
 class DatadomeSDK(SDK, DatadomeChallengeParser):
-    def __init__(self, host: str, api_key: str):
-        super().__init__(host, api_key)
+    def __init__(self, cfg: SDKConfig):
+        super().__init__(cfg=cfg)
 
     def generate_user_agent(self, task: TaskGenerateUserAgent) -> GenerateUserAgentSolution:
         return self.api_call("/useragent", task, GenerateUserAgentSolution)
@@ -117,8 +117,8 @@ class DatadomeSDK(SDK, DatadomeChallengeParser):
         )
     
 class AsyncDatadomeSDK(AsyncSDK, DatadomeChallengeParser):
-    def __init__(self, host: str, api_key: str):
-        super().__init__(host, api_key)
+    def __init__(self, cfg: SDKConfig):
+        super().__init__(cfg=cfg)
 
     async def __aenter__(self): 
         return self
