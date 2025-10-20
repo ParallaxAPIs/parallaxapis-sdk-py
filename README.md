@@ -474,4 +474,6 @@ MIT
 
 ---
 
-Made with ❤️ by Parallax Systems
+## 🔑 Keywords
+
+**DataDome bypass** • **PerimeterX bypass** • **Anti-bot bypass** • **Bot detection bypass** • **CAPTCHA solver** • **Cookie generator** • **Python web scraping** • **Python bot automation** • **Async Python anti-bot** • **DataDome Python SDK** • **PerimeterX Python SDK** • **Headless browser alternative** • **Request-based bypass** • **Python automation** • **Web scraping Python** • **Bot mitigation bypass** • **Sensor data generation** • **Challenge solver** • **asyncio anti-bot** • **pip anti-bot**
