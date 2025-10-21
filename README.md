@@ -15,6 +15,18 @@ Built with both async and sync support, this SDK is perfect for Python developer
 
 ---
 
+## 🚀 Quick Start
+
+Get started with ParallaxAPIs SDK's in under 5 minutes:
+
+1. **Join our [Discord](https://www.parallaxsystems.io/join?s=gh)** - Connect with our community
+2. **Create a ticket** - Request your API key
+3. **Get your free trial** - Start testing immediately
+4. **[Install the SDK](#-installation)** - Choose your preferred language
+5. **Solve all anti-bots in seconds** - Start bypassing DataDome, PerimeterX & more
+
+---
+
 ## 📦 Installation
 
 ### pip
