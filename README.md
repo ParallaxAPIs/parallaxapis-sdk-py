@@ -53,14 +53,14 @@ from parallax_sdk_py.src.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
-    host="dd.parallaxsystems.io",
-    api_key="key"
+    host="host.com", # optional
+    api_key="Key"
 )
 
 # Advanced configuration with timeout and proxy
 cfg = SDKConfig(
-    host="dd.parallaxsystems.io",
-    api_key="key",
+    host="host.com", # optional
+    api_key="Key",
     timeout=60,  # Optional: request timeout in seconds (default: 30)
     proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
 )
@@ -86,14 +86,14 @@ from parallax_sdk_py.src.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
-    host="dd.parallaxsystems.io",
-    api_key="key"
+    host="host.com", # optional
+    api_key="Key"
 )
 
 # Advanced configuration with timeout and proxy
 cfg = SDKConfig(
-    host="dd.parallaxsystems.io",
-    api_key="key",
+    host="host.com", # optional
+    api_key="Key",
     timeout=60,  # Optional: request timeout in seconds (default: 30)
     proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
 )
@@ -120,24 +120,16 @@ from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
 from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
 
-cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="host.com", api_key="Key")
 
 async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     user_agent = await sdk.generate_user_agent(TaskGenerateUserAgent(
-        region="pl",
-        site="vinted",
+        region="com",
+        site="site",
         pd="optional"
     ))
 
     print(user_agent)
-    # Output:
-    # {
-    #     'UserAgent': 'Mozilla/5.0 ...',
-    #     'secHeader': '...',
-    #     'secFullVersionList': '...',
-    #     'secPlatform': '...',
-    #     'secArch': '...'
-    # }
 ```
 
 #### Sync Client
@@ -146,17 +138,16 @@ from parallax_sdk_py.src.datadome import DatadomeSDK
 from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
 
-cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="host.com", api_key="Key")
 
 with DatadomeSDK(cfg=cfg) as sdk:
     user_agent = sdk.generate_user_agent(TaskGenerateUserAgent(
-        region="pl",
-        site="vinted",
+        region="com",
+        site="site",
         pd="optional"
     ))
 
     print(user_agent)
-    # Output: Same as async version
 ```
 
 ### 🔍 Get Task Data
@@ -166,22 +157,14 @@ with DatadomeSDK(cfg=cfg) as sdk:
 from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
 from parallax_sdk_py.src.sdk import SDKConfig
 
-cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="host.com", api_key="Key")
 
 async with AsyncDatadomeSDK(cfg=cfg) as sdk:
-    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
-    cookie = "cookie"
+    challenge_url = "https://www.example.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=1&e=e"
+    cookie = "cookie_value"
     task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
     print(task_data, product_type)
-    # Output:
-    # GenerateDatadomeCookieData(
-    #     cid="cookie",
-    #     b="",
-    #     e="e",
-    #     s="s",
-    #     initialCid="initialCid"
-    # ), ProductType.Captcha
 ```
 
 #### Sync Client
@@ -189,11 +172,11 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 from parallax_sdk_py.src.datadome import DatadomeSDK
 from parallax_sdk_py.src.sdk import SDKConfig
 
-cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="host.com", api_key="Key")
 
 with DatadomeSDK(cfg=cfg) as sdk:
-    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
-    cookie = "cookie"
+    challenge_url = "https://www.example.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
+    cookie = "cookie_value"
     task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
     print(task_data, product_type)
@@ -209,20 +192,20 @@ from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(
-    host="dd.parallaxsystems.io",
-    api_key="key",
+    host="host.com", # Optional
+    api_key="Key",
     timeout=60,  # Optional: custom timeout
     proxy="http://user:pass@proxy.example.com:8080"  # Optional: SDK-level proxy
 )
 
 async with AsyncDatadomeSDK(cfg=cfg) as sdk:
-    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
-    cookie = "cookie"
+    challenge_url = "https://www.example.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
+    cookie = "cookie_value"
     task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
     cookie_response = await sdk.generate_cookie(TaskGenerateDatadomeCookie(
-        site="vinted",
-        region="pl",
+        site="site",
+        region="com",
         data=task_data,
         pd=product_type,
         proxy="http://user:pas@addr:port",  # Task-level proxy (for solving)
@@ -230,11 +213,6 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     ))
 
     print(cookie_response)
-    # Output:
-    # {
-    #     'cookie': 'datadome=cookie_value',
-    #     'userAgent': 'Mozilla/5.0 ...'
-    # }
 ```
 
 #### Sync Client
@@ -244,20 +222,20 @@ from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(
-    host="dd.parallaxsystems.io",
-    api_key="key",
+    host="host.com", # Optional
+    api_key="Key",
     timeout=60,  # Optional: custom timeout
     proxy="http://user:pass@proxy.example.com:8080"  # Optional: SDK-level proxy
 )
 
 with DatadomeSDK(cfg=cfg) as sdk:
-    challenge_url = "https://geo.captcha-delivery.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
-    cookie = "cookie"
+    challenge_url = "https://www.example.com/captcha/?initialCid=initialCid&cid=cid&referer=referer&hash=hash&t=t&s=s&e=e"
+    cookie = "cookie_value"
     task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
     cookie_response = sdk.generate_cookie(TaskGenerateDatadomeCookie(
-        site="vinted",
-        region="pl",
+        site="site",
+        region="com",
         data=task_data,
         pd=product_type,
         proxy="http://user:pas@addr:port",  # Task-level proxy (for solving)
@@ -265,12 +243,9 @@ with DatadomeSDK(cfg=cfg) as sdk:
     ))
 
     print(cookie_response)
-    # Output: Same as async version
 ```
 
 ### 🏷️ Generate Tags Cookie
-
-The `generate_tags_cookie` method is used to generate initial Datadome tags cookies (uses `ProductType.Init`). This is typically used for the initial page load before any challenge is encountered.
 
 #### Async Client
 ```python
@@ -278,23 +253,18 @@ from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
 from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
-cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="host.com", api_key="Key")
 
 async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     tags_cookie_response = await sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
-        site="vinted",
-        region="pl",
+        site="site",
+        region="com",
         data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
         proxy="http://user:pas@addr:port",
         proxyregion="eu"
     ))
 
     print(tags_cookie_response)
-    # Output:
-    # {
-    #     'cookie': 'datadome=tags_cookie_value',
-    #     'userAgent': 'Mozilla/5.0 ...'
-    # }
 ```
 
 #### Sync Client
@@ -303,19 +273,18 @@ from parallax_sdk_py.src.datadome import DatadomeSDK
 from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
-cfg = SDKConfig(host="dd.parallaxsystems.io", api_key="key")
+cfg = SDKConfig(host="host.com", api_key="Key")
 
 with DatadomeSDK(cfg=cfg) as sdk:
     tags_cookie_response = sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
-        site="vinted",
-        region="pl",
+        site="site",
+        region="com",
         data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
         proxy="http://user:pas@addr:port",
         proxyregion="eu"
     ))
 
     print(tags_cookie_response)
-    # Output: Same as async version
 ```
 
 ---
@@ -331,14 +300,14 @@ from parallax_sdk_py.src.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
-    host="api.parallaxsystems.io",
-    api_key="key"
+    host="host.com",
+    api_key="Key"
 )
 
 # Advanced configuration with timeout and proxy
 cfg = SDKConfig(
-    host="api.parallaxsystems.io",
-    api_key="key",
+    host="host.com",
+    api_key="Key",
     timeout=60,  # Optional: request timeout in seconds (default: 30)
     proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
 )
@@ -364,14 +333,14 @@ from parallax_sdk_py.src.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
-    host="api.parallaxsystems.io",
-    api_key="key"
+    host="host.com",
+    api_key="Key"
 )
 
 # Advanced configuration with timeout and proxy
 cfg = SDKConfig(
-    host="api.parallaxsystems.io",
-    api_key="key",
+    host="host.com",
+    api_key="Key",
     timeout=60,  # Optional: request timeout in seconds (default: 30)
     proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
 )
@@ -399,8 +368,8 @@ from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
 cfg = SDKConfig(
-    host="api.parallaxsystems.io",
-    api_key="key",
+    host="host.com",
+    api_key="Key",
     timeout=60  # Optional: custom timeout
 )
 
@@ -409,42 +378,22 @@ async with AsyncPerimeterxSDK(cfg=cfg) as sdk:
         proxy="http://user:pas@addr:port",
         proxyregion="eu",
         region="com",
-        site="stockx"
+        site="site"
     ))
 
     print(result)
-    # Output:
-    # {
-    #     'cookie': '_px3=d3sswjaltwxgAd...',
-    #     'vid': '514d7e11-6962-11f0-810f-88cc16043287',
-    #     'cts': '514d8e28-6962-11f0-810f-51b6xf2786b0',
-    #     'isFlagged': False,
-    #     'isMaybeFlagged': True,
-    #     'UserAgent': 'Mozilla/5.0 ...',
-    #     'data': '==WlrBti6vpO6rshP1CFtBsiocoO8...'
-    # }
+
 
     hold_captcha_result = await sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
         proxy="http://user:pas@addr:port",
         proxyregion="eu",
         region="com",
-        site="stockx",
+        site="site",
         data=result['data'],
         POW_PRO=None
     ))
 
     print(hold_captcha_result)
-    # Output:
-    # {
-    #     'cookie': '_px3=d3sswjaltwxgAd...',
-    #     'vid': '514d7e11-6962-11f0-810f-88cc16043287',
-    #     'cts': '514d8e28-6962-11f0-810f-51b6xf2786b0',
-    #     'isFlagged': False,
-    #     'isMaybeFlagged': True,
-    #     'UserAgent': 'Mozilla/5.0 ...',
-    #     'data': '==WlrBti6vpO6rshP1CFtBsiocoO8...',
-    #     'flaggedPOW': False
-    # }
 ```
 
 #### Sync Client
@@ -454,8 +403,8 @@ from parallax_sdk_py.src.sdk import SDKConfig
 from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
 cfg = SDKConfig(
-    host="api.parallaxsystems.io",
-    api_key="key",
+    host="host.com",
+    api_key="Key",
     timeout=60  # Optional: custom timeout
 )
 
@@ -464,23 +413,22 @@ with PerimeterxSDK(cfg=cfg) as sdk:
         proxy="http://user:pas@addr:port",
         proxyregion="eu",
         region="com",
-        site="stockx"
+        site="site"
     ))
 
     print(result)
-    # Output: Same as async version
+
 
     hold_captcha_result = sdk.generate_hold_captcha(TaskGenerateHoldCaptcha(
         proxy="http://user:pas@addr:port",
         proxyregion="eu",
         region="com",
-        site="stockx",
+        site="site",
         data=result['data'],
         POW_PRO=None
     ))
 
     print(hold_captcha_result)
-    # Output: Same as async version
 ```
 
 ---
