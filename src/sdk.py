@@ -3,7 +3,7 @@ from httpx import AsyncClient, Request, Response
 import httpx 
 from dataclasses import asdict, dataclass
 from typing import TypeVar
-from constants import DEFAULT_DATADOME_API_HOST, DEFAULT_PX_API_HOST
+from .constants import DEFAULT_DATADOME_API_HOST, DEFAULT_PX_API_HOST
 
 T = TypeVar('T')
 
