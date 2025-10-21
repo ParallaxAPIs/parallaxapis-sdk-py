@@ -1,17 +1,21 @@
 # 🚀 ParallaxAPIs SDK: Datadome & Perimeterx (Python)
 
-**Powerful Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
+**Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
 
-Built with both async and sync support, this SDK is perfect for Python developers who need flexibility. Whether you're building async web scrapers with aiohttp/httpx or traditional synchronous applications, this SDK has you covered.
+## 📖 About Parallax API
 
-## ✨ Why Choose the Python SDK?
+ParallaxAPIs provides a **request-based solution** for bypassing DataDome and PerimeterX anti-bot systems. Instead of relying on slow, resource-heavy browser automation, our API generates valid cookies and tokens in **200-400ms** through direct HTTP requests.
 
-- **🔄 Dual Mode Support**: Both async (`AsyncDatadomeSDK`) and sync (`DatadomeSDK`) clients for maximum flexibility
-- **⚡ Async-First Design**: Native asyncio support with context managers for efficient concurrent operations
-- **🎯 Type Hints**: Full type annotations with dataclass-based models for better IDE support
-- **🛠️ Pythonic API**: Clean, intuitive interfaces following Python best practices
-- **📦 Easy Integration**: Works seamlessly with popular HTTP libraries (aiohttp, httpx, requests)
-- **🔧 Flexible Configuration**: Context manager support with automatic resource cleanup
+**What We Solve:**
+- ✅ **DataDome** - Slider captchas, interstitial pages, cookie generation, tags payload
+- ✅ **PerimeterX** - Cookie generation (_px3), challenge solver, vid & cts tokens
+
+**Key Benefits:**
+- ⚡ **Lightning Fast** - 200-400ms response times vs 2-5+ seconds for browsers
+- 🔧 **Simple Integration** - Clean API, no browser management required
+- 🚀 **Highly Scalable** - Handle thousands of concurrent requests with minimal resources
+- 💰 **Cost Effective** - Lightweight infrastructure, minimal proxy usage
+- 🔄 **Always Updated** - We handle all reverse engineering and updates for you
 
 ---
 
