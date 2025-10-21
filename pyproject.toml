@@ -4,7 +4,8 @@ version = "1.0.2"
 description = "ParallaxAPIs SDK"
 readme = "README.md"
 requires-python = ">=3.11"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [{ name = "ParallaxSystems", email = "info@parallaxsystems.io" }]
 keywords = ["perimeterx", "web scraping", "datadome", "crawlers"]
 dependencies = [
@@ -27,6 +28,7 @@ module-root = ""
 [tool.uv]
 include = [
     "src/**/*",
+    "LICENSE",
     "README.md",
 ]
 
