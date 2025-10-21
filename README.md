@@ -1,4 +1,4 @@
-# 🚀 Parallax SDK: Datadome & Perimeterx (Python)
+# 🚀 ParallaxAPIs SDK: Datadome & Perimeterx (Python)
 
 **Powerful Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
 
@@ -31,12 +31,7 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
 
 ### pip
 ```bash
- pip install parallax-sdk-py
-```
-
-### uv
-```bash
- uv add parallax-sdk-py
+ pip install parallaxapis-sdk-py
 ```
 
 ---
@@ -486,16 +481,21 @@ with PerimeterxSDK(cfg=cfg) as sdk:
 
 ## 📚 Documentation & Help
 
-- Full API docs: [GitHub](https://github.com/parallaxsystems/parallax-sdk-py)
-- Issues & support: [GitHub Issues](https://github.com/parallaxsystems/parallax-sdk-py/issues)
+- Full API docs & support: [Discord](https://www.parallaxsystems.io/join?s=gh)
 
----
+
+
+## 🌟 Contributing
+
+Got feedback or found a bug? Feel free to open an issue or send us a pull request!
+
+
 
 ## 🏢 Enterprise
 
-Unlock enterprise-grade performance with custom solutions, expanded limits, and expert support. Contact us to learn more.
+Unlock enterprise-grade performance with custom solutions, expanded limits, and expert support. [Contact us](https://www.parallaxsystems.io/join?s=gh) to learn more.
 
----
+
 
 ## 📝 License
 
