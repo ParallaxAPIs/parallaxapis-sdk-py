@@ -3,21 +3,31 @@ from httpx import AsyncClient, Request, Response
 import httpx 
 from dataclasses import asdict, dataclass
 from typing import TypeVar
+from constants import DEFAULT_DATADOME_API_HOST, DEFAULT_PX_API_HOST
 
 T = TypeVar('T')
 
 @dataclass
-class SDKConfig():
-    host: str
+class SDKConfig:
     api_key: str
+    host: Optional[str] = None
     timeout: Optional[int] = 30
     proxy: Optional[str] = None
 
 class SDKHelper():
-    def __init__(self, host: str, api_key: str):
-        self.host = host 
+    def __init__(self, host: Optional[str], api_key: str):
         self.api_key = api_key
-   
+        self.host = self.resolve_default_host(host, api_key)
+
+    def resolve_default_host(host: Optional[str], api_key: str) -> str:
+        if host:
+            return host
+        if api_key.startswith("PX-"):
+            return DEFAULT_PX_API_HOST
+        if api_key.startswith("DD-"):
+            return DEFAULT_DATADOME_API_HOST
+        raise ValueError("No host provided and unable to determine from API key prefix")
+
     def create_request(self, endpoint: str, task: Any) -> Request:
         payload = {
             "auth": self.api_key, 
