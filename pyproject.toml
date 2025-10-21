@@ -39,3 +39,7 @@ dev = [
     "pytest-httpserver>=1.1.3",
     "fastapi>=0.119.0"
 ]
+
+[tool.basedpyright]
+reportUnsafeMultipleInheritance = false
+reportMissingSuperCall = false

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class GenerateUserAgentSolution(BaseModel):
     UserAgent: str
     secHeader: str
@@ -7,10 +8,12 @@ class GenerateUserAgentSolution(BaseModel):
     secPlatform: str
     secArch: str
 
+
 class GenerateDatadomeCookieSolution(BaseModel):
     cookie: str
     userAgent: str
-    
+
+
 class GeneratePXCookiesSolution(BaseModel):
     cookie: str
     vid: str
@@ -19,6 +22,7 @@ class GeneratePXCookiesSolution(BaseModel):
     isMaybeFlagged: bool
     UserAgent: str
     data: str
+
 
 class GenerateHoldCaptchaSolution(GeneratePXCookiesSolution, BaseModel):
     flaggedPOW: bool
