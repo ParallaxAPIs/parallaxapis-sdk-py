@@ -34,6 +34,8 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
  pip install parallaxapis-sdk-py
 ```
 
+![Pip Install Demo](pipinstallsdk.gif)
+
 ---
 
 ## 🧑‍💻 Datadome Usage
