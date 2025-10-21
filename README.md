@@ -180,7 +180,6 @@ with DatadomeSDK(cfg=cfg) as sdk:
     task_data, product_type = sdk.parse_challenge_url(challenge_url, cookie)
 
     print(task_data, product_type)
-    # Output: Same as async version
 ```
 
 ### 🍪 Generate Cookie
