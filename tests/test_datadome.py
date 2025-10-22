@@ -1,10 +1,13 @@
 from typing import Optional
 import pytest
-from src.datadome import DatadomeSDK
+from parallaxapis_sdk_py.datadome import DatadomeSDK
 from dataclasses import dataclass
-from src.exceptions import PermanentlyBlockedException, UnknownChallengeTypeException
-from src.sdk import SDKConfig
-from src.tasks import ProductType
+from parallaxapis_sdk_py.exceptions import (
+    PermanentlyBlockedException,
+    UnknownChallengeTypeException,
+)
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import ProductType
 
 
 @pytest.mark.asyncio

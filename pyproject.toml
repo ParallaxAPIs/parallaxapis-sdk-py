@@ -22,7 +22,7 @@ requires = ["uv_build>=0.8.19,<0.9.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
-module-name = "src"
+module-name = "parallaxapis_sdk_py"
 module-root = ""
 include = [
     "src/**/*",
