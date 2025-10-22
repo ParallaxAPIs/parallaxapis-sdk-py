@@ -2,7 +2,7 @@
 
 **Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
 
-## Overview
+## 📖 Overview
 
 ParallaxAPIs provides a **request-based solution** for bypassing DataDome and PerimeterX anti-bot systems. Instead of relying on slow, resource-heavy browser automation, our API generates valid cookies and tokens in **200-400ms** through direct HTTP requests.
 
