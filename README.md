@@ -11,7 +11,7 @@ ParallaxAPIs provides a **request-based solution** for bypassing DataDome and Pe
 - ✅ **PerimeterX** - Cookie generation (_px3), challenge solver, vid & cts tokens
 
 **Key Benefits:**
-- ⚡ **Lightning Fast** - 200-400ms response times vs 2-5+ seconds for browsers
+- ⚡ **Lightning Fast** - 200-400ms response times vs 5-10+ seconds for browsers
 - 🔧 **Simple Integration** - Clean API with comprehensive documentation, no browser management required
 - 🚀 **Highly Scalable** - Handle thousands of concurrent requests with minimal resources
 - ⚙️ **Flexible Configuration** - Custom timeouts, HTTP clients, and proxy settings
