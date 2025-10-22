@@ -15,7 +15,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://www.parallaxsystems.io/join?s=pip"
-Repository = "https://github.com/ParallaxAPIs/parallax-sdk-py"
+Repository = "https://github.com/ParallaxAPIs/parallaxapis-sdk-py"
 
 [build-system]
 requires = ["uv_build>=0.8.19,<0.9.0"]
