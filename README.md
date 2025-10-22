@@ -12,8 +12,9 @@ ParallaxAPIs provides a **request-based solution** for bypassing DataDome and Pe
 
 **Key Benefits:**
 - ⚡ **Lightning Fast** - 200-400ms response times vs 2-5+ seconds for browsers
-- 🔧 **Simple Integration** - Clean API, no browser management required
+- 🔧 **Simple Integration** - Clean API with comprehensive documentation, no browser management required
 - 🚀 **Highly Scalable** - Handle thousands of concurrent requests with minimal resources
+- ⚙️ **Flexible Configuration** - Custom timeouts, HTTP clients, and proxy settings
 - 💰 **Cost Effective** - Lightweight infrastructure, minimal proxy usage
 - 🔄 **Always Updated** - We handle all reverse engineering and updates for you
 
