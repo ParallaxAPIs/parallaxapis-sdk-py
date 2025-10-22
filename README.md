@@ -182,6 +182,50 @@ with DatadomeSDK(cfg=cfg) as sdk:
     print(task_data, product_type)
 ```
 
+### 📄 Parse Challenge HTML
+
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
+
+cfg = SDKConfig(host="host.com", api_key="Key")
+
+async with AsyncDatadomeSDK(cfg=cfg) as sdk:
+    # HTML body containing dd object
+    html_body = "<html><script>dd={'b':'example'}</script></html>"
+    prev_cookie = "cookie_value"
+    
+    # Parse HTML challenge
+    task_data, product_type = sdk.parse_challenge_html(
+        html_body=html_body, 
+        datadome_cookie=prev_cookie
+    )
+    
+    print(task_data, product_type)
+```
+
+#### Sync Client
+```python
+from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
+
+cfg = SDKConfig(host="host.com", api_key="Key")
+
+with DatadomeSDK(cfg=cfg) as sdk:
+    # HTML body containing dd object
+    html_body = "<html><script>dd={'t':'it','s':123456,'e':'example','cid':'initialCid','b':'optional'}</script></html>"
+    prev_cookie = "cookie_value"
+    
+    # Parse HTML challenge
+    task_data, product_type = sdk.parse_challenge_html(
+        html_body=html_body, 
+        datadome_cookie=prev_cookie
+    )
+    
+    print(task_data, product_type)
+```
+
 ### 🍪 Generate Cookie
 
 #### Async Client
@@ -284,6 +328,74 @@ with DatadomeSDK(cfg=cfg) as sdk:
     ))
 
     print(tags_cookie_response)
+```
+
+### 🔍 Detect and Parse Challenge
+
+#### Async Client
+```python
+from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
+
+cfg = SDKConfig(host="host.com", api_key="Key")
+
+async with AsyncDatadomeSDK(cfg=cfg) as sdk:
+    # Response body from website (could be HTML or JSON)
+    response_body = "<html>...</html>"  
+    prev_cookie = "cookie_value"
+    
+    # Detect if challenge exists and parse it
+    is_blocked, task_data, product_type = sdk.detect_challenge_and_parse(
+        body=response_body, 
+        datadome_cookie=prev_cookie
+    )
+    
+    if is_blocked:
+        # Generate new cookie using the parsed data
+        cookie_resp = await sdk.generate_cookie(TaskGenerateDatadomeCookie(
+            site="site",
+            region="com",
+            data=task_data,
+            pd=product_type,
+            proxy="http://user:pass@addr:port",
+            proxyregion="eu"
+        ))
+        
+        print(cookie_resp)
+```
+
+#### Sync Client
+```python
+from parallax_sdk_py.src.datadome import DatadomeSDK
+from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
+
+cfg = SDKConfig(host="host.com", api_key="Key")
+
+with DatadomeSDK(cfg=cfg) as sdk:
+    # Response body from website (could be HTML or JSON)
+    response_body = "<html>...</html>"  
+    prev_cookie = "cookie_value"
+    
+    # Detect if challenge exists and parse it
+    is_blocked, task_data, product_type = sdk.detect_challenge_and_parse(
+        body=response_body, 
+        datadome_cookie=prev_cookie
+    )
+    
+    if is_blocked:
+        # Generate new cookie using the parsed data
+        cookie_resp = sdk.generate_cookie(TaskGenerateDatadomeCookie(
+            site="site",
+            region="com",
+            data=task_data,
+            pd=product_type,
+            proxy="http://user:pass@addr:port",
+            proxyregion="eu"
+        ))
+        
+        print(cookie_resp)
 ```
 
 ---
