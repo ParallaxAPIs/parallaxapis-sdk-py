@@ -7,10 +7,12 @@
 ParallaxAPIs provides a **request-based solution** for bypassing DataDome and PerimeterX anti-bot systems. Instead of relying on slow, resource-heavy browser automation, our API generates valid cookies and tokens in **200-400ms** through direct HTTP requests.
 
 **What We Solve:**
+
 - ✅ **DataDome** - Slider captchas, interstitial pages, cookie generation, tags payload
 - ✅ **PerimeterX** - Cookie generation (_px3), challenge solver, vid & cts tokens
 
 **Key Benefits:**
+
 - ⚡ **Lightning Fast** - 200-400ms response times vs 5-10+ seconds for browsers
 - 🔧 **Simple Integration** - Clean API with comprehensive documentation, no browser management required
 - 🚀 **Highly Scalable** - Handle thousands of concurrent requests with minimal resources
@@ -35,6 +37,7 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
 ## 📦 Installation
 
 ### pip
+
 ```bash
  pip install parallaxapis-sdk-py
 ```
@@ -48,9 +51,10 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
 ### ⚡ SDK Initialization
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -81,9 +85,10 @@ finally:
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.datadome import DatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.datadome import DatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -116,10 +121,11 @@ finally:
 ### 🕵️‍♂️ Generate New User Agent
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
+from parallax_sdk_py.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateUserAgent
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -134,10 +140,11 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.datadome import DatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateUserAgent
+from parallax_sdk_py.datadome import DatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateUserAgent
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -154,9 +161,10 @@ with DatadomeSDK(cfg=cfg) as sdk:
 ### 🔍 Get Task Data
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -169,9 +177,10 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.datadome import DatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.datadome import DatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -186,9 +195,10 @@ with DatadomeSDK(cfg=cfg) as sdk:
 ### 📄 Parse Challenge HTML
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -196,20 +206,21 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     # HTML body containing dd object
     html_body = "<html><script>dd={'b':'example'}</script></html>"
     prev_cookie = "cookie_value"
-    
+
     # Parse HTML challenge
     task_data, product_type = sdk.parse_challenge_html(
-        html_body=html_body, 
+        html_body=html_body,
         datadome_cookie=prev_cookie
     )
-    
+
     print(task_data, product_type)
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.datadome import DatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.datadome import DatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -217,23 +228,24 @@ with DatadomeSDK(cfg=cfg) as sdk:
     # HTML body containing dd object
     html_body = "<html><script>dd={'t':'it','s':123456,'e':'example','cid':'initialCid','b':'optional'}</script></html>"
     prev_cookie = "cookie_value"
-    
+
     # Parse HTML challenge
     task_data, product_type = sdk.parse_challenge_html(
-        html_body=html_body, 
+        html_body=html_body,
         datadome_cookie=prev_cookie
     )
-    
+
     print(task_data, product_type)
 ```
 
 ### 🍪 Generate Cookie
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
+from parallax_sdk_py.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(
     host="host.com", # Optional
@@ -260,10 +272,11 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.datadome import DatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
+from parallax_sdk_py.datadome import DatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(
     host="host.com", # Optional
@@ -292,10 +305,11 @@ with DatadomeSDK(cfg=cfg) as sdk:
 ### 🏷️ Generate Tags Cookie
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+from parallax_sdk_py.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -312,10 +326,11 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.datadome import DatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+from parallax_sdk_py.datadome import DatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -334,24 +349,25 @@ with DatadomeSDK(cfg=cfg) as sdk:
 ### 🔍 Detect and Parse Challenge
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
+from parallax_sdk_py.datadome import AsyncDatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
 async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     # Response body from website (could be HTML or JSON)
-    response_body = "<html>...</html>"  
+    response_body = "<html>...</html>"
     prev_cookie = "cookie_value"
-    
+
     # Detect if challenge exists and parse it
     is_blocked, task_data, product_type = sdk.detect_challenge_and_parse(
-        body=response_body, 
+        body=response_body,
         datadome_cookie=prev_cookie
     )
-    
+
     if is_blocked:
         # Generate new cookie using the parsed data
         cookie_resp = await sdk.generate_cookie(TaskGenerateDatadomeCookie(
@@ -362,29 +378,30 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
             proxy="http://user:pass@addr:port",
             proxyregion="eu"
         ))
-        
+
         print(cookie_resp)
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.datadome import DatadomeSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGenerateDatadomeCookie
+from parallax_sdk_py.datadome import DatadomeSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
 with DatadomeSDK(cfg=cfg) as sdk:
     # Response body from website (could be HTML or JSON)
-    response_body = "<html>...</html>"  
+    response_body = "<html>...</html>"
     prev_cookie = "cookie_value"
-    
+
     # Detect if challenge exists and parse it
     is_blocked, task_data, product_type = sdk.detect_challenge_and_parse(
-        body=response_body, 
+        body=response_body,
         datadome_cookie=prev_cookie
     )
-    
+
     if is_blocked:
         # Generate new cookie using the parsed data
         cookie_resp = sdk.generate_cookie(TaskGenerateDatadomeCookie(
@@ -395,7 +412,7 @@ with DatadomeSDK(cfg=cfg) as sdk:
             proxy="http://user:pass@addr:port",
             proxyregion="eu"
         ))
-        
+
         print(cookie_resp)
 ```
 
@@ -406,9 +423,10 @@ with DatadomeSDK(cfg=cfg) as sdk:
 ### ⚡ SDK Initialization
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.perimeterx import AsyncPerimeterxSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.perimeterx import AsyncPerimeterxSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -439,9 +457,10 @@ finally:
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.perimeterx import PerimeterxSDK
-from parallax_sdk_py.src.sdk import SDKConfig
+from parallax_sdk_py.perimeterx import PerimeterxSDK
+from parallax_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -474,10 +493,11 @@ finally:
 ### 🍪 Generate PX Cookie
 
 #### Async Client
+
 ```python
-from parallax_sdk_py.src.perimeterx import AsyncPerimeterxSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
+from parallax_sdk_py.perimeterx import AsyncPerimeterxSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
 cfg = SDKConfig(
     host="host.com",
@@ -509,10 +529,11 @@ async with AsyncPerimeterxSDK(cfg=cfg) as sdk:
 ```
 
 #### Sync Client
+
 ```python
-from parallax_sdk_py.src.perimeterx import PerimeterxSDK
-from parallax_sdk_py.src.sdk import SDKConfig
-from parallax_sdk_py.src.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
+from parallax_sdk_py.perimeterx import PerimeterxSDK
+from parallax_sdk_py.sdk import SDKConfig
+from parallax_sdk_py.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
 cfg = SDKConfig(
     host="host.com",
@@ -549,19 +570,13 @@ with PerimeterxSDK(cfg=cfg) as sdk:
 
 - Full API docs & support: [Discord](https://www.parallaxsystems.io/join?s=gh)
 
-
-
 ## 🌟 Contributing
 
 Got feedback or found a bug? Feel free to open an issue or send us a pull request!
 
-
-
 ## 🏢 Enterprise
 
 Unlock enterprise-grade performance with custom solutions, expanded limits, and expert support. [Contact us](https://www.parallaxsystems.io/join?s=gh) to learn more.
-
-
 
 ## 📝 License
 
