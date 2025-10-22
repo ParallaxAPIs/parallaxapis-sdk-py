@@ -24,9 +24,9 @@ class SDKHelper:
     def resolve_default_host(self, host: str | None, api_key: str) -> str:
         if host:
             return host
-        if api_key.startswith("PX-"):
+        if api_key.upper().startswith("PX-"):
             return DEFAULT_PX_API_HOST
-        if api_key.startswith("DD-"):
+        if api_key.upper().startswith("DD-"):
             return DEFAULT_DATADOME_API_HOST
         raise ValueError("No host provided and unable to determine from API key prefix")
 

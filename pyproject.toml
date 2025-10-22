@@ -24,12 +24,10 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "src"
 module-root = ""
-
-[tool.uv]
 include = [
     "src/**/*",
     "LICENSE",
-    "README.md",
+    "README.md"
 ]
 
 [dependency-groups]
