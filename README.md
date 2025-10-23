@@ -42,7 +42,7 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
  pip install parallaxapis-sdk-py
 ```
 
-![Pip Install Demo](https://raw.githubusercontent.com/ParallaxAPIs/parallax-sdk-py/main/pipinstallsdk.gif)
+![Pip Install Demo](https://raw.githubusercontent.com/ParallaxAPIs/parallaxapis-sdk-py/main/pipinstallsdk.gif)
 
 ---
 
