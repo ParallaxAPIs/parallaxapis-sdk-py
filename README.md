@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/ParallaxAPIs/parallaxapis-sdk-py/main/logo.png" alt="Parallax Logo" width="30" height="30" style="vertical-align: middle;"> ParallaxAPIs Python SDK: Datadome & PerimeterX
+# <img src="https://raw.githubusercontent.com/ParallaxAPIs/parallax-sdk-py/main/logo.png" alt="Parallax Logo" width="30" height="30" style="vertical-align: middle;"> ParallaxAPIs Python SDK: Datadome & PerimeterX
 
 **Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
 
@@ -42,7 +42,7 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
  pip install parallaxapis-sdk-py
 ```
 
-![Pip Install Demo](https://raw.githubusercontent.com/ParallaxAPIs/parallaxapis-sdk-py/main/pipinstallsdk.gif)
+![Pip Install Demo](https://raw.githubusercontent.com/ParallaxAPIs/parallax-sdk-py/main/pipinstallsdk.gif)
 
 ---
 
