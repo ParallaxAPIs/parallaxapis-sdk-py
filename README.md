@@ -1,4 +1,4 @@
-# <img src="https://raw.githubusercontent.com/ParallaxAPIs/parallax-sdk-py/main/logo.png" alt="Parallax Logo" width="30" height="30" style="vertical-align: middle;"> ParallaxAPIs Python SDK: Datadome & PerimeterX
+# <img src="https://raw.githubusercontent.com/ParallaxAPIs/.github/main/profile/logo.png" alt="Parallax Logo" width="30" height="30" style="vertical-align: middle;"> ParallaxAPIs Python SDK: Datadome & PerimeterX
 
 **Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
 
