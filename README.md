@@ -53,8 +53,8 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
 #### Async Client
 
 ```python
-from parallax_sdk_py.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -87,8 +87,8 @@ finally:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.datadome import DatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.datadome import DatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -123,9 +123,9 @@ finally:
 #### Async Client
 
 ```python
-from parallax_sdk_py.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateUserAgent
+from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateUserAgent
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -142,9 +142,9 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.datadome import DatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateUserAgent
+from parallaxapis_sdk_py.datadome import DatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateUserAgent
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -163,8 +163,8 @@ with DatadomeSDK(cfg=cfg) as sdk:
 #### Async Client
 
 ```python
-from parallax_sdk_py.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -179,8 +179,8 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.datadome import DatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.datadome import DatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -197,8 +197,8 @@ with DatadomeSDK(cfg=cfg) as sdk:
 #### Async Client
 
 ```python
-from parallax_sdk_py.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -219,8 +219,8 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.datadome import DatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.datadome import DatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -243,9 +243,9 @@ with DatadomeSDK(cfg=cfg) as sdk:
 #### Async Client
 
 ```python
-from parallax_sdk_py.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
+from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(
     host="host.com", # Optional
@@ -274,9 +274,9 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.datadome import DatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
+from parallaxapis_sdk_py.datadome import DatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(
     host="host.com", # Optional
@@ -307,9 +307,9 @@ with DatadomeSDK(cfg=cfg) as sdk:
 #### Async Client
 
 ```python
-from parallax_sdk_py.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -328,9 +328,9 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.datadome import DatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+from parallaxapis_sdk_py.datadome import DatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -351,9 +351,9 @@ with DatadomeSDK(cfg=cfg) as sdk:
 #### Async Client
 
 ```python
-from parallax_sdk_py.datadome import AsyncDatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
+from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -385,9 +385,9 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.datadome import DatadomeSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGenerateDatadomeCookie
+from parallaxapis_sdk_py.datadome import DatadomeSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeCookie
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -425,8 +425,8 @@ with DatadomeSDK(cfg=cfg) as sdk:
 #### Async Client
 
 ```python
-from parallax_sdk_py.perimeterx import AsyncPerimeterxSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.perimeterx import AsyncPerimeterxSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -459,8 +459,8 @@ finally:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.perimeterx import PerimeterxSDK
-from parallax_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.perimeterx import PerimeterxSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
 
 # Basic configuration
 cfg = SDKConfig(
@@ -495,9 +495,9 @@ finally:
 #### Async Client
 
 ```python
-from parallax_sdk_py.perimeterx import AsyncPerimeterxSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
+from parallaxapis_sdk_py.perimeterx import AsyncPerimeterxSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
 cfg = SDKConfig(
     host="host.com",
@@ -531,9 +531,9 @@ async with AsyncPerimeterxSDK(cfg=cfg) as sdk:
 #### Sync Client
 
 ```python
-from parallax_sdk_py.perimeterx import PerimeterxSDK
-from parallax_sdk_py.sdk import SDKConfig
-from parallax_sdk_py.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
+from parallaxapis_sdk_py.perimeterx import PerimeterxSDK
+from parallaxapis_sdk_py.sdk import SDKConfig
+from parallaxapis_sdk_py.tasks import TaskGeneratePXCookies, TaskGenerateHoldCaptcha
 
 cfg = SDKConfig(
     host="host.com",
