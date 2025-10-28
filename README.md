@@ -42,6 +42,13 @@ Get started with ParallaxAPIs SDK's in under 5 minutes:
  pip install parallaxapis-sdk-py
 ```
 
+### uv
+
+```bash
+ uv add parallaxapis-sdk-py
+```
+
+
 ![Pip Install Demo](https://raw.githubusercontent.com/ParallaxAPIs/.github/main/profile/pipinstallsdk.gif)
 
 ---
