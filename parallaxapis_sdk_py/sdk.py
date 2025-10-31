@@ -14,6 +14,7 @@ class SDKConfig:
     host: str | None = None
     timeout: int | None = 30
     proxy: str | None = None
+    insecure: bool = False
 
 
 class SDKHelper:
@@ -76,12 +77,11 @@ class SDK(SDKHelper):
             self._client.close()
 
     def __enter__(self):
-        self._client = httpx.Client(timeout=self.cfg.timeout, proxy=self.cfg.proxy)
-
+        self._client = httpx.Client(timeout=self.cfg.timeout, proxy=self.cfg.proxy, verify=not self.cfg.insecure)
         return self
 
     def init_client(self):
-        self._client = httpx.Client(timeout=self.cfg.timeout, proxy=self.cfg.proxy)
+        self._client = httpx.Client(timeout=self.cfg.timeout, proxy=self.cfg.proxy, verify=not self.cfg.insecure)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.close()
@@ -119,7 +119,7 @@ class AsyncSDK(SDKHelper):
         return self
 
     async def init_client(self):
-        self._client = AsyncClient(timeout=self.cfg.timeout, proxy=self.cfg.proxy)
+        self._client = AsyncClient(timeout=self.cfg.timeout, proxy=self.cfg.proxy, verify=not self.cfg.insecure)
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
         await self.aclose()
