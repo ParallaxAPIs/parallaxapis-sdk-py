@@ -74,7 +74,8 @@ cfg = SDKConfig(
     host="host.com", # optional
     api_key="Key",
     timeout=60,  # Optional: request timeout in seconds (default: 30)
-    proxy="http://user:pass@proxy.example.com:8080"  # Optional: proxy URL
+    proxy="http://user:pass@proxy.example.com:8080",  # Optional: proxy URL
+    insecure=True # Optional: configures a client to skip SSL certificate verification
 )
 
 # Option 1: Context manager (Recommended) - automatic cleanup
