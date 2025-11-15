@@ -26,3 +26,8 @@ class GeneratePXCookiesSolution(BaseModel):
 
 class GenerateHoldCaptchaSolution(GeneratePXCookiesSolution, BaseModel):
     flaggedPOW: bool
+
+
+class ResponseGetUsage(BaseModel):
+    usedRequests: str
+    requestsLeft: int

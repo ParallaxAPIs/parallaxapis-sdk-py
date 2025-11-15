@@ -4,6 +4,7 @@ import httpx
 from dataclasses import asdict, dataclass
 from typing import TypeVar
 from .constants import DEFAULT_DATADOME_API_HOST, DEFAULT_PX_API_HOST
+from .solutions import ResponseGetUsage
 
 T = TypeVar("T")
 
@@ -96,6 +97,18 @@ class SDK(SDKHelper):
         res = self._client.send(req)
 
         return self.parse_response(res=res, solution=solution)
+    
+    def check_usage(self, site: str) -> ResponseGetUsage:
+        if self._client is None:
+            self.init_client()
+
+        assert self._client is not None
+
+        url = f"https://{self.host}/usage"
+        params = {"authToken": self.api_key, "site": site}
+        res = self._client.get(url, params=params)
+
+        return self.parse_response(res=res, solution=ResponseGetUsage)
 
 
 class AsyncSDK(SDKHelper):
@@ -134,3 +147,15 @@ class AsyncSDK(SDKHelper):
         res = await self._client.send(req)
 
         return self.parse_response(res=res, solution=solution)
+
+    async def check_usage(self, site: str) -> ResponseGetUsage:
+        if self._client is None:
+            await self.init_client()
+
+        assert self._client is not None
+
+        url = f"https://{self.host}/usage"
+        params = {"authToken": self.api_key, "site": site}
+        res = await self._client.get(url, params=params)
+
+        return self.parse_response(res=res, solution=ResponseGetUsage)

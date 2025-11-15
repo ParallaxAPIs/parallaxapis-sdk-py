@@ -1,13 +1,13 @@
 [project]
 name = "parallaxapis-sdk-py"
-version = "1.0.5"
+version = "1.0.6"
 description = "ParallaxAPIs SDK"
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "ParallaxSystems", email = "info@parallaxsystems.io" }]
-keywords = ["perimeterx", "web scraping", "datadome", "crawlers"]
+keywords = [ "perimeterx", "datadome", "web scraping", "bot detection", "anti-bot", "bypass", "captcha solver", "typescript", "javascript", "nodejs", "automation", "headless browser", "sensor data", "challenge solver", "cookie generation", "fingerprinting", "crawlers", "bot mitigation", "sdk", "request-based" ]
 dependencies = [
     "httpx[http2]>=0.28.1",
     "pydantic>=2.12.0"
