@@ -81,6 +81,7 @@ cfg = SDKConfig(
 # Option 1: Context manager (Recommended) - automatic cleanup
 async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     # Your code here
+    usage = await sdk.check_usage("site")
     pass
 
 # Option 2: Manual close - remember to call aclose()
@@ -115,6 +116,7 @@ cfg = SDKConfig(
 # Option 1: Context manager - automatic cleanup
 with DatadomeSDK(cfg=cfg) as sdk:
     # Your code here
+    usage = sdk.check_usage("site")
     pass
 
 # Option 2: Manual close - call close() when done
@@ -453,6 +455,7 @@ cfg = SDKConfig(
 # Option 1: Context manager (Recommended) - automatic cleanup
 async with AsyncPerimeterxSDK(cfg=cfg) as sdk:
     # Your code here
+    usage = await sdk.check_usage("site")
     pass
 
 # Option 2: Manual close - remember to call aclose()
@@ -487,6 +490,7 @@ cfg = SDKConfig(
 # Option 1: Context manager - automatic cleanup
 with PerimeterxSDK(cfg=cfg) as sdk:
     # Your code here
+    usage = sdk.check_usage("site") 
     pass
 
 # Option 2: Manual close - call close() when done
