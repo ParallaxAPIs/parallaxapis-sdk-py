@@ -90,11 +90,13 @@ class DatadomeChallengeParser:
 
         pd: ProductType
 
-        if dd_values_object["t"] == "it":
+        t = dd_values_object.get("t")
+
+        if t == "it":
             pd = ProductType.Interstitial
-        elif dd_values_object["t"] == "fe":
+        elif t == "fe":
             pd = ProductType.Captcha
-        elif dd_values_object["t"] == "bv":
+        elif t == "bv":
             raise PermanentlyBlockedException
         else:
             pd = ProductType.Interstitial
