@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import Any, Optional
 from httpx import AsyncClient, Request, Response
 import httpx
@@ -8,6 +9,9 @@ from .solutions import ResponseGetUsage
 
 T = TypeVar("T")
 
+class SDKKind(Enum):
+    PERIMETERX = "px"
+    DATADOME = "dd"
 
 @dataclass
 class SDKConfig:
@@ -19,9 +23,10 @@ class SDKConfig:
 
 
 class SDKHelper:
-    def __init__(self, host: str | None, api_key: str):
+    def __init__(self, host: str | None, api_key: str, sdk_kind: SDKKind):
         self.api_key = api_key
         self.host = self.resolve_default_host(host, api_key)
+        self.sdk_kind = sdk_kind
 
     def resolve_default_host(self, host: str | None, api_key: str) -> str:
         if host:
@@ -43,6 +48,21 @@ class SDKHelper:
             headers={"content-type": "application/json"},
             json=payload,
         )
+    
+    def _format_additional_context_info(self, body: dict[Any, Any]):
+        context_keys = [
+            'isFlagged', 
+            'isMaybeFlagged', 
+            'flaggedPOW', 
+        ]
+
+        values = []
+
+        for key in context_keys:
+            if key in body:
+                values.append(f"{key}: {body[key]}")
+
+        return ", ".join(values)
 
     def parse_response(self, res: Response, solution: type[T]) -> T:
         if res.status_code != 200:
@@ -55,6 +75,11 @@ class SDKHelper:
         if isinstance(body, dict) and body.get("error") is True:
             if body.get("message") is None:
                 body["message"] = body.get("cookie")
+
+            if self.sdk_kind == SDKKind.PERIMETERX:
+                additional_context = self._format_additional_context_info(body)
+                body["message"] = f"{body['message']} {additional_context}"
+
             raise Exception(
                 f"Api responded with error, error message: {body['message']}"
             )
@@ -64,10 +89,11 @@ class SDKHelper:
 class SDK(SDKHelper):
     _client: httpx.Client | None
 
-    def __init__(self, cfg: SDKConfig):
+    def __init__(self, cfg: SDKConfig, sdk_kind: SDKKind):
         super().__init__(
             api_key=cfg.api_key,
             host=cfg.host,
+            sdk_kind=sdk_kind, 
         )
 
         self._client = None
@@ -81,7 +107,7 @@ class SDK(SDKHelper):
         self._client = httpx.Client(timeout=self.cfg.timeout, proxy=self.cfg.proxy, verify=not self.cfg.insecure)
         return self
 
-    def init_client(self):
+    def _init_client(self):
         self._client = httpx.Client(timeout=self.cfg.timeout, proxy=self.cfg.proxy, verify=not self.cfg.insecure)
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -89,7 +115,7 @@ class SDK(SDKHelper):
 
     def api_call(self, endpoint: str, task: Any, solution: type[T]) -> T:
         if self._client is None:
-            self.init_client()
+            self._init_client()
 
         assert self._client is not None
 
@@ -100,7 +126,7 @@ class SDK(SDKHelper):
     
     def check_usage(self, site: str) -> ResponseGetUsage:
         if self._client is None:
-            self.init_client()
+            self._init_client()
 
         assert self._client is not None
 
@@ -114,10 +140,11 @@ class SDK(SDKHelper):
 class AsyncSDK(SDKHelper):
     _client: AsyncClient | None
 
-    def __init__(self, cfg: SDKConfig):
+    def __init__(self, cfg: SDKConfig, sdk_kind: SDKKind):
         super().__init__(
             api_key=cfg.api_key,
             host=cfg.host,
+            sdk_kind=sdk_kind
         )
 
         self.cfg: SDKConfig = cfg
@@ -128,10 +155,10 @@ class AsyncSDK(SDKHelper):
             await self._client.aclose()
 
     async def __aenter__(self):
-        await self.init_client()
+        await self._init_client()
         return self
 
-    async def init_client(self):
+    async def _init_client(self):
         self._client = AsyncClient(timeout=self.cfg.timeout, proxy=self.cfg.proxy, verify=not self.cfg.insecure)
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -139,7 +166,7 @@ class AsyncSDK(SDKHelper):
 
     async def api_call(self, endpoint: str, task: Any, solution: type[T]) -> T:
         if self._client is None:
-            await self.init_client()
+            await self._init_client()
 
         assert self._client is not None
 
@@ -150,7 +177,7 @@ class AsyncSDK(SDKHelper):
 
     async def check_usage(self, site: str) -> ResponseGetUsage:
         if self._client is None:
-            await self.init_client()
+            await self._init_client()
 
         assert self._client is not None
 

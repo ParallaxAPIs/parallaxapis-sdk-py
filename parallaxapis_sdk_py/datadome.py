@@ -4,7 +4,7 @@ import re
 from typing import Any
 from typing_extensions import override
 import urllib.parse
-from .sdk import SDK, AsyncSDK, SDKConfig
+from .sdk import SDK, AsyncSDK, SDKConfig, SDKKind
 from .solutions import GenerateUserAgentSolution, GenerateDatadomeCookieSolution
 from .tasks import (
     ProductType,
@@ -135,7 +135,7 @@ class DatadomeChallengeParser:
 
 class DatadomeSDK(SDK, DatadomeChallengeParser):
     def __init__(self, cfg: SDKConfig):
-        super().__init__(cfg=cfg)
+        super().__init__(cfg=cfg, sdk_kind=SDKKind.DATADOME)
 
     def generate_user_agent(
         self, task: TaskGenerateUserAgent
@@ -157,6 +157,7 @@ class DatadomeSDK(SDK, DatadomeChallengeParser):
                 region=task.region,
                 pd=ProductType.Init,
                 proxy=task.proxy,
+                proxyregion=task.proxyregion, 
                 data=GenerateDatadomeCookieData(
                     cid=task.data.cid, e="", s="", b="", initialCid=""
                 ),
@@ -167,7 +168,7 @@ class DatadomeSDK(SDK, DatadomeChallengeParser):
 
 class AsyncDatadomeSDK(AsyncSDK, DatadomeChallengeParser):
     def __init__(self, cfg: SDKConfig):
-        super().__init__(cfg=cfg)
+        super().__init__(cfg=cfg, sdk_kind=SDKKind.DATADOME)
 
     @override
     async def __aenter__(self):
@@ -197,6 +198,7 @@ class AsyncDatadomeSDK(AsyncSDK, DatadomeChallengeParser):
                 region=task.region,
                 pd=ProductType.Init,
                 proxy=task.proxy,
+                proxyregion=task.proxyregion, 
                 data=GenerateDatadomeCookieData(
                     cid=task.data.cid, e="", s="", b="", initialCid=""
                 ),

@@ -1,15 +1,15 @@
 from typing_extensions import override
-from .sdk import SDK, AsyncSDK, SDKConfig
+from .sdk import SDK, AsyncSDK, SDKConfig, SDKKind
 from .solutions import (
     GenerateHoldCaptchaSolution,
     GeneratePXCookiesSolution,
 )
-from .tasks import TaskGenerateHoldCaptcha, TaskGeneratePXCookies, TaskGenerateUserAgent
 
+from .tasks import TaskGenerateHoldCaptcha, TaskGeneratePXCookies, TaskGenerateUserAgent
 
 class PerimeterxSDK(SDK):
     def __init__(self, cfg: SDKConfig):
-        super().__init__(cfg=cfg)
+        super().__init__(cfg=cfg, sdk_kind=SDKKind.PERIMETERX)
 
     def generate_cookies(
         self, task: TaskGeneratePXCookies
@@ -24,7 +24,7 @@ class PerimeterxSDK(SDK):
 
 class AsyncPerimeterxSDK(AsyncSDK):
     def __init__(self, cfg: SDKConfig):
-        super().__init__(cfg=cfg)
+        super().__init__(cfg=cfg, sdk_kind=SDKKind.PERIMETERX)
 
     @override
     async def __aenter__(self):
