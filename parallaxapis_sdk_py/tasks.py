@@ -29,6 +29,7 @@ class TaskGenerateDatadomeCookie:
     site: str
     region: str
     proxy: str
+    proxyregion: str
     pd: ProductType
     data: GenerateDatadomeCookieData
 
@@ -42,6 +43,7 @@ class TagsData:
 class TaskGenerateDatadomeTagsCookie:
     site: str
     region: str
+    proxyregion: str
     proxy: str
     data: TagsData
 

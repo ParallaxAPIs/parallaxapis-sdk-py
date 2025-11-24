@@ -7,11 +7,29 @@ requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "ParallaxSystems", email = "info@parallaxsystems.io" }]
-keywords = [ "perimeterx", "datadome", "web scraping", "bot detection", "anti-bot", "bypass", "captcha solver", "typescript", "javascript", "nodejs", "automation", "headless browser", "sensor data", "challenge solver", "cookie generation", "fingerprinting", "crawlers", "bot mitigation", "sdk", "request-based" ]
-dependencies = [
-    "httpx[http2]>=0.28.1",
-    "pydantic>=2.12.0"
+keywords = [
+    "perimeterx",
+    "datadome",
+    "web scraping",
+    "bot detection",
+    "anti-bot",
+    "bypass",
+    "captcha solver",
+    "typescript",
+    "javascript",
+    "nodejs",
+    "automation",
+    "headless browser",
+    "sensor data",
+    "challenge solver",
+    "cookie generation",
+    "fingerprinting",
+    "crawlers",
+    "bot mitigation",
+    "sdk",
+    "request-based",
 ]
+dependencies = ["httpx[http2]>=0.28.1", "pydantic>=2.12.0"]
 
 [project.urls]
 Homepage = "https://www.parallaxsystems.io/join?s=pip"
@@ -24,18 +42,14 @@ build-backend = "uv_build"
 [tool.uv.build-backend]
 module-name = "parallaxapis_sdk_py"
 module-root = ""
-include = [
-    "parallaxapis_sdk_py/**/*",
-    "LICENSE",
-    "README.md"
-]
+include = ["parallaxapis_sdk_py/**/*", "LICENSE", "README.md"]
 
 [dependency-groups]
 dev = [
     "pytest>=8.4.2",
     "pytest-asyncio>=1.2.0",
     "pytest-httpserver>=1.1.3",
-    "fastapi>=0.119.0"
+    "fastapi>=0.119.0",
 ]
 
 [tool.basedpyright]
