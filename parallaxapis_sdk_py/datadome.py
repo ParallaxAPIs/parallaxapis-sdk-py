@@ -97,7 +97,7 @@ class DatadomeChallengeParser:
         elif dd_values_object["t"] == "bv":
             raise PermanentlyBlockedException
         else:
-            raise UnknownChallengeTypeException
+            pd = ProductType.Interstitial
 
         b: str = ""
 
