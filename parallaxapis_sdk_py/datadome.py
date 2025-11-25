@@ -52,6 +52,9 @@ class DatadomeChallengeParser:
         ):
             raise PermanentlyBlockedException
 
+        if datadome_cookie == "":
+            datadome_cookie = parsed_queries.get("cid", "")[0]
+
         return GenerateDatadomeCookieData(
             b=parsed_queries.get("b", "0")[0],
             s=parsed_queries.get("s", "")[0],
@@ -105,6 +108,9 @@ class DatadomeChallengeParser:
 
         if "b" in dd_values_object:
             b = str(dd_values_object["b"])
+
+        if datadome_cookie == "":
+            datadome_cookie = str(dd_values_object["cid"])
 
         return GenerateDatadomeCookieData(
             b=b,
