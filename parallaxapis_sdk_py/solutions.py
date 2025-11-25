@@ -10,8 +10,8 @@ class GenerateUserAgentSolution(BaseModel):
 
 
 class GenerateDatadomeCookieSolution(BaseModel):
-    cookie: str
-    userAgent: str
+    message: str
+    UserAgent: str
 
 
 class GeneratePXCookiesSolution(BaseModel):
