@@ -325,7 +325,7 @@ with DatadomeSDK(cfg=cfg) as sdk:
 ```python
 from parallaxapis_sdk_py.datadome import AsyncDatadomeSDK
 from parallaxapis_sdk_py.sdk import SDKConfig
-from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, TagsData
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -333,9 +333,9 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
     tags_cookie_response = await sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
         site="site",
         region="com",
-        data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
         proxy="http://user:pas@addr:port",
-        proxyregion="eu"
+        proxyregion="eu",
+        data=TagsData(cid="null/old_cookie_val")
     ))
 
     print(tags_cookie_response)
@@ -346,7 +346,7 @@ async with AsyncDatadomeSDK(cfg=cfg) as sdk:
 ```python
 from parallaxapis_sdk_py.datadome import DatadomeSDK
 from parallaxapis_sdk_py.sdk import SDKConfig
-from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, GenerateDatadomeTagsCookieData
+from parallaxapis_sdk_py.tasks import TaskGenerateDatadomeTagsCookie, TagsData
 
 cfg = SDKConfig(host="host.com", api_key="Key")
 
@@ -354,9 +354,9 @@ with DatadomeSDK(cfg=cfg) as sdk:
     tags_cookie_response = sdk.generate_tags_cookie(TaskGenerateDatadomeTagsCookie(
         site="site",
         region="com",
-        data=GenerateDatadomeTagsCookieData(cid="your_datadome_cookie_value"),
         proxy="http://user:pas@addr:port",
-        proxyregion="eu"
+        proxyregion="eu",
+        data=TagsData(cid="null/old_cookie_val")
     ))
 
     print(tags_cookie_response)
