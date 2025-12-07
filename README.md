@@ -539,7 +539,7 @@ async with AsyncPerimeterxSDK(cfg=cfg) as sdk:
         proxyregion="eu",
         region="com",
         site="site",
-        data=result['data'],
+        data=result.data,
         POW_PRO=None
     ))
 
@@ -575,7 +575,7 @@ with PerimeterxSDK(cfg=cfg) as sdk:
         proxyregion="eu",
         region="com",
         site="site",
-        data=result['data'],
+        data=result.data,
         POW_PRO=None
     ))
 
