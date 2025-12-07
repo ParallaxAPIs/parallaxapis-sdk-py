@@ -16,7 +16,7 @@ class PerimeterxSDK(SDK):
     def generate_cookies(
         self, task: TaskGeneratePXCookies
     ) -> Union[GeneratePXCookiesSolution, GeneratePXCookiesSolutionMobile]:
-        if "mobile" in task.site.lower():
+        if "mobile" in task.region.lower():
             return self.api_call("/gen", task, GeneratePXCookiesSolutionMobile)
         else:
             return self.api_call("/gen", task, GeneratePXCookiesSolution)
@@ -42,7 +42,7 @@ class AsyncPerimeterxSDK(AsyncSDK):
     async def generate_cookies(
         self, task: TaskGeneratePXCookies
     ) -> Union[GeneratePXCookiesSolution, GeneratePXCookiesSolutionMobile]:
-        if "mobile" in task.site.lower():
+        if "mobile" in task.region.lower():
             return await self.api_call("/gen", task, GeneratePXCookiesSolutionMobile)
         else:
             return await self.api_call("/gen", task, GeneratePXCookiesSolution)
