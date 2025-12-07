@@ -14,7 +14,10 @@ class PerimeterxSDK(SDK):
     def generate_cookies(
         self, task: TaskGeneratePXCookies
     ) -> GeneratePXCookiesSolution:
-        return self.api_call("/gen", task, GeneratePXCookiesSolution)
+        if "mobile" in task.site.lower():
+            return self.api_call("/gen", task, GeneratePXCookiesSolutionMobile)
+        else:
+            return self.api_call("/gen", task, GeneratePXCookiesSolution)
 
     def generate_hold_captcha(
         self, task: TaskGenerateHoldCaptcha
@@ -37,7 +40,10 @@ class AsyncPerimeterxSDK(AsyncSDK):
     async def generate_cookies(
         self, task: TaskGeneratePXCookies
     ) -> GeneratePXCookiesSolution:
-        return await self.api_call("/gen", task, GeneratePXCookiesSolution)
+        if "mobile" in task.site.lower():
+            return await self.api_call("/gen", task, GeneratePXCookiesSolutionMobile)
+        else:
+            return await self.api_call("/gen", task, GeneratePXCookiesSolution)
 
     async def generate_hold_captcha(
         self, task: TaskGenerateHoldCaptcha

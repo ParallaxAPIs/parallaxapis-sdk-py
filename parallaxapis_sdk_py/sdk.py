@@ -128,9 +128,6 @@ class SDK(SDKHelper):
 
         parsed = self.parse_response(res=res, solution=solution)
 
-        if isinstance(parsed, BaseModel):
-            return parsed.model_dump(exclude_none=True)
-
         return parsed
     
     def check_usage(self, site: str) -> ResponseGetUsage:
@@ -184,9 +181,6 @@ class AsyncSDK(SDKHelper):
 
         parsed = self.parse_response(res=res, solution=solution)
 
-        if isinstance(parsed, BaseModel):
-            return parsed.model_dump(exclude_none=True)
-        
         return parsed
 
     async def check_usage(self, site: str) -> ResponseGetUsage:

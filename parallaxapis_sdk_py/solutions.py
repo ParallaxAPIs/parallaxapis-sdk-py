@@ -14,19 +14,22 @@ class GenerateDatadomeCookieSolution(BaseModel):
     message: str
     UserAgent: str
 
-
-class GeneratePXCookiesSolution(BaseModel):
+class BasePXCookieSolution(BaseModel):
     cookie: str
     vid: str
-    cts: Optional[str] = None
-    uuid: Optional[str] = None
-    isFlagged: Optional[bool] = None
-    isMaybeFlagged: Optional[bool] = None
+    cts: str
+    isMaybeFlagged: bool
     UserAgent: str
-    model: Optional[str] = None
-    device_fp: Optional[str] = None
     data: str
 
+
+class GeneratePXCookiesSolution(BasePXCookieSolution):
+    isFlagged: Optional[bool] = None
+
+class GeneratePXCookiesSolutionMobile(BasePXCookieSolution):
+    uuid: str
+    model: str
+    device_fp: str
 
 class GenerateHoldCaptchaSolution(GeneratePXCookiesSolution):
     flaggedPOW: bool
