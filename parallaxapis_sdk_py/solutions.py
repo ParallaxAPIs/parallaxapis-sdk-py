@@ -17,13 +17,13 @@ class GenerateDatadomeCookieSolution(BaseModel):
 class BasePXCookieSolution(BaseModel):
     cookie: str
     vid: str
-    cts: str
-    isMaybeFlagged: bool
     UserAgent: str
     data: str
 
 
 class GeneratePXCookiesSolution(BasePXCookieSolution):
+    cts: str
+    isMaybeFlagged: bool
     isFlagged: Optional[bool] = None
 
 class GeneratePXCookiesSolutionMobile(BasePXCookieSolution):

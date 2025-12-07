@@ -1,8 +1,10 @@
+from typing import Union
 from typing_extensions import override
 from .sdk import SDK, AsyncSDK, SDKConfig, SDKKind
 from .solutions import (
     GenerateHoldCaptchaSolution,
     GeneratePXCookiesSolution,
+    GeneratePXCookiesSolutionMobile,
 )
 
 from .tasks import TaskGenerateHoldCaptcha, TaskGeneratePXCookies, TaskGenerateUserAgent
@@ -13,7 +15,7 @@ class PerimeterxSDK(SDK):
 
     def generate_cookies(
         self, task: TaskGeneratePXCookies
-    ) -> GeneratePXCookiesSolution:
+    ) -> Union[GeneratePXCookiesSolution, GeneratePXCookiesSolutionMobile]::
         if "mobile" in task.site.lower():
             return self.api_call("/gen", task, GeneratePXCookiesSolutionMobile)
         else:
@@ -39,7 +41,7 @@ class AsyncPerimeterxSDK(AsyncSDK):
 
     async def generate_cookies(
         self, task: TaskGeneratePXCookies
-    ) -> GeneratePXCookiesSolution:
+    ) -> Union[GeneratePXCookiesSolution, GeneratePXCookiesSolutionMobile]:
         if "mobile" in task.site.lower():
             return await self.api_call("/gen", task, GeneratePXCookiesSolutionMobile)
         else:
