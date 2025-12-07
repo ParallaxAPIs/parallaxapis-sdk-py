@@ -1,6 +1,6 @@
 [project]
 name = "parallaxapis-sdk-py"
-version = "1.2.0"
+version = "1.2.1"
 description = "ParallaxAPIs SDK"
 readme = "README.md"
 requires-python = ">=3.11"

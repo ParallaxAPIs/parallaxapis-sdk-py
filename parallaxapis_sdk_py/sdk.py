@@ -75,9 +75,6 @@ class SDKHelper:
         except Exception:
             raise Exception("Invalid JSON response")
 
-        if isinstance(body, dict):
-            body = {k: v for k, v in body.items() if v is not None}
-
         if isinstance(body, dict) and body.get("error") is True:
             if body.get("message") is None:
                 body["message"] = body.get("cookie")
@@ -129,7 +126,12 @@ class SDK(SDKHelper):
         req = self.create_request(endpoint=endpoint, task=task)
         res = self._client.send(req)
 
-        return self.parse_response(res=res, solution=solution)
+        parsed = self.parse_response(res=res, solution=solution)
+
+        if isinstance(parsed, BaseModel):
+            return parsed.model_dump(exclude_none=True)
+
+        return parsed
     
     def check_usage(self, site: str) -> ResponseGetUsage:
         if self._client is None:
@@ -180,7 +182,12 @@ class AsyncSDK(SDKHelper):
         req = self.create_request(endpoint=endpoint, task=task)
         res = await self._client.send(req)
 
-        return self.parse_response(res=res, solution=solution)
+        parsed = self.parse_response(res=res, solution=solution)
+
+        if isinstance(parsed, BaseModel):
+            return parsed.model_dump(exclude_none=True)
+        
+        return parsed
 
     async def check_usage(self, site: str) -> ResponseGetUsage:
         if self._client is None:
