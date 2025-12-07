@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from enum import Enum
 from typing import Any, Optional
 from httpx import AsyncClient, Request, Response
@@ -59,8 +60,9 @@ class SDKHelper:
         values = []
 
         for key in context_keys:
-            if key in body:
-                values.append(f"{key}: {body[key]}")
+            value = body.get(key)
+            if value is not None:
+                values.append(f"{key}: {value}")
 
         return ", ".join(values)
 
@@ -72,6 +74,10 @@ class SDKHelper:
             body = res.json()
         except Exception:
             raise Exception("Invalid JSON response")
+
+        if isinstance(body, dict):
+            body = {k: v for k, v in body.items() if v is not None}
+
         if isinstance(body, dict) and body.get("error") is True:
             if body.get("message") is None:
                 body["message"] = body.get("cookie")
@@ -83,6 +89,7 @@ class SDKHelper:
             raise Exception(
                 f"Api responded with error, error message: {body['message']}"
             )
+        
         return solution(**body)
 
 

@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -17,14 +18,17 @@ class GenerateDatadomeCookieSolution(BaseModel):
 class GeneratePXCookiesSolution(BaseModel):
     cookie: str
     vid: str
-    cts: str
-    isFlagged: bool
-    isMaybeFlagged: bool
+    cts: Optional[str] = None
+    uuid: Optional[str] = None
+    isFlagged: Optional[bool] = None
+    isMaybeFlagged: Optional[bool] = None
     UserAgent: str
+    model: Optional[str] = None
+    device_fp: Optional[str] = None
     data: str
 
 
-class GenerateHoldCaptchaSolution(GeneratePXCookiesSolution, BaseModel):
+class GenerateHoldCaptchaSolution(GeneratePXCookiesSolution):
     flaggedPOW: bool
 
 
