@@ -48,19 +48,20 @@ class DatadomeChallengeParser:
 
         if (
             parsed_queries.get("t") is not None
-            and parsed_queries.get("t", "")[0] == "bv"
+            and parsed_queries.get("t", [""])[0] == "bv"
         ):
             raise PermanentlyBlockedException
 
-        if datadome_cookie == "":
-            datadome_cookie = parsed_queries.get("cid", "")[0]
+        queryCid = parsed_queries.get("cid", [""])[0]
+        if queryCid == "":
+            queryCid = datadome_cookie
 
         return GenerateDatadomeCookieData(
-            b=parsed_queries.get("b", "0")[0],
-            s=parsed_queries.get("s", "")[0],
-            e=parsed_queries.get("e", "")[0],
-            cid=datadome_cookie,
-            initialCid=parsed_queries.get("initialCid", "")[0],
+            b=parsed_queries.get("b", ["0"])[0],
+            s=parsed_queries.get("s", [""])[0],
+            e=parsed_queries.get("e", [""])[0],
+            cid=queryCid,
+            initialCid=parsed_queries.get("initialCid", [""])[0],
         ), pd
 
     def parse_challenge_json(
@@ -109,14 +110,15 @@ class DatadomeChallengeParser:
         if "b" in dd_values_object:
             b = str(dd_values_object["b"])
 
-        if datadome_cookie == "":
-            datadome_cookie = str(dd_values_object["cid"])
+        htmlCookie = dd_values_object.get("cookie", "")
+        if htmlCookie == "":
+            htmlCookie = datadome_cookie
 
         return GenerateDatadomeCookieData(
             b=b,
             s=str(dd_values_object["s"]),
             e=dd_values_object["e"],
-            cid=datadome_cookie,
+            cid=htmlCookie,
             initialCid=dd_values_object["cid"],
         ), pd
 
