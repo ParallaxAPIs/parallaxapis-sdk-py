@@ -3,7 +3,7 @@
 
 ![license MIT](https://img.shields.io/static/v1?label=license&message=MIT&color=99cc33&labelColor=555555) ![Python](https://img.shields.io/static/v1?label=Python&message=3.8%2B&color=007ec6&labelColor=555555) ![downloads](https://img.shields.io/static/v1?label=downloads&message=250%2Fmonth&color=brightgreen&labelColor=555555)
 
-[![Discord](https://img.shields.io/static/v1?label=ParallaxAPIs&message=1.870%20Members&color=555555&labelColor=5865F2&style=for-the-badge&logo=discord&logoColor=white)](https://www.parallaxsystems.io/join?s=gh)
+[![Discord](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fparallaxapis%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&label=ParallaxAPIs&suffix=%20Members&color=555555&labelColor=5865F2&style=for-the-badge&logo=discord&logoColor=white)](https://www.parallaxsystems.io/join?s=gh)
 
 
 **Python SDK for bypassing DataDome and PerimeterX anti-bot protection.**
