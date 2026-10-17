@@ -23,6 +23,7 @@ class BasePXCookieSolution(BaseModel):
 
 class GeneratePXCookiesSolution(BasePXCookieSolution):
     cts: str
+    secHeader: str
     isMaybeFlagged: bool
     isFlagged: Optional[bool] = None
 
